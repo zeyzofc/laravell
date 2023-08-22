@@ -147,8 +147,8 @@
 	});
 
 	
-	Dropzone.autoDiscover = false;    
-	const dropzone = $("#image").dropzone({ 
+	Dropzone.autoDiscover = false;
+	const dropzone = $("#image").dropzone({
 		init: function() {
 			this.on('addedfile', function(file) {
 				if (this.files.length > 1) {

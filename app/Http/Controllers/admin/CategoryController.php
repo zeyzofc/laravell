@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
 use Illuminate\Support\Facades\File;
-use App\Http\Controllers\admin\TempImagesController;
 use App\Models\TempImage;
-use Intervention\Image\Image;
+use Image;
 
 class CategoryController extends Controller
 {
