@@ -15,7 +15,7 @@
 								<a href="dashboard.html" class="nav-link">
 									<i class="nav-icon fas fa-tachometer-alt"></i>
 									<p>Dashboard</p>
-								</a>																
+								</a>
 							</li>
 							<li class="nav-item">
 								<a href="{{route('categories.index')}}" class="nav-link">
@@ -24,7 +24,7 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="subcategory.html" class="nav-link">
+								<a href="{{ route('sub-categories.index') }}" class="nav-link">
 									<i class="nav-icon fas fa-file-alt"></i>
 									<p>Sub Category</p>
 								</a>
@@ -74,7 +74,7 @@
 									<i class="nav-icon  far fa-file-alt"></i>
 									<p>Pages</p>
 								</a>
-							</li>							
+							</li>
 						</ul>
 					</nav>
 					<!-- /.sidebar-menu -->
