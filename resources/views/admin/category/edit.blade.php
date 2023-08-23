@@ -54,7 +54,6 @@
                                                 <img width="250" src="{{ asset('uploads/category/thumb/'.$category->image) }}" alt="">
                                             </div>
                                             @endif
-										</div>
 										<div class="col-md-6">
 											<div class="mb-3">
 												<label for="status">Status</label>
@@ -64,6 +63,7 @@
 												</select>
 											</div>
 										</div>
+									</div>
 									</div>
 								</div>
 							</div>
