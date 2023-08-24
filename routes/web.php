@@ -64,6 +64,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('/brands', [BrandController::class,'store'])->name('brands.store');
         Route::get('/brands/{brand}/edit', [BrandController::class,'edit'])->name('brands.edit');
         Route::put('/brands/{brand}', [BrandController::class,'update'])->name('brands.update');
+        Route::delete('/brands/{brand}', [BrandController::class,'destroy'])->name('brands.delete');
 
 
         //temp-images.create
