@@ -145,7 +145,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body text-center mt-3">
-                                    <a class="h6 link" href="product.php">{{ $product->tile }}</a>
+                                    <a class="h6 link" href="product.php">{{ $product->title }}</a>
                                     <div class="price mt-2">
                                         <span class="h5"><strong>{{ $product->price }}</strong></span>
 
@@ -162,7 +162,8 @@
                         @endif
                         
                         <div class="col-md-12 pt-5">
-                            <nav aria-label="Page navigation example">
+                            {{ $products->withQueryString()->links() }}
+                            {{-- <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item disabled">
                                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -174,7 +175,7 @@
                                     <a class="page-link" href="#">Next</a>
                                     </li>
                                 </ul>
-                            </nav>
+                            </nav> --}}
                         </div>
                     </div>
                 </div>
