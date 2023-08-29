@@ -142,7 +142,7 @@
             <div class="col-md-3">
                 <div class="card product-card">
                     <div class="product-image position-relative">
-                        <a href="" class="product-img">
+                        <a href="{{ route("front.product",$product->slug) }}" class="product-img">
                             
                             {{-- <img class="card-img-top" src="images/product-1.jpg" alt=""> --}}
 
@@ -193,7 +193,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img">
+                            <a href="{{ route("front.product",$product->slug) }}" class="product-img">
                                 
                                 {{-- <img class="card-img-top" src="images/product-1.jpg" alt=""> --}}
 
