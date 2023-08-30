@@ -80,7 +80,7 @@ class ProductController extends Controller
             $product->save();
 
 
-            // Buat save image gallery
+            // Buat Save Image Gallery
             if(!empty($request->image_array)){
                 foreach ($request->image_array as $temp_image_id){
 
