@@ -107,10 +107,10 @@
                                 <div>Subtotal</div>
                                 <div>Rp {{ Cart::subtotal() }}</div>
                             </div>
-                            {{-- <div class="d-flex justify-content-between pb-2">
+                            <div class="d-flex justify-content-between pb-2">
                                 <div>Shipping</div>
-                                <div>Rp Budi Anjay Gurinjay</div>
-                            </div> --}}
+                                <div>Rp 0</div>
+                            </div>
                             <div class="d-flex justify-content-between summery-end">
                                 <div>Total</div>
                                 <div>Rp {{ Cart::subtotal() }}</div>
