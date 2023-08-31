@@ -116,7 +116,7 @@
                                 <div>Rp {{ Cart::subtotal() }}</div>
                             </div>
                             <div class="pt-5">
-                                <a href="login.php" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
+                                <a href="{{ route('front.checkout') }}" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body d-flex justify-content-center align-items-center">
-                            <h4>Keranjang Belanja Mu Kosong</h4>
+                            <h4>Your Cart is Empty</h4>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                     var rowId = $(this).data('id');
                     var newQty = qtyElement.val();
                     updateCart(rowId,newQty)
-                }            
+                }
             });
 
             $('.sub').click(function(){
@@ -162,7 +162,7 @@
                     var rowId = $(this).data('id');
                     var newQty = qtyElement.val();
                     updateCart(rowId,newQty)
-                }        
+                }
             });
 
             function updateCart(rowId,qty) {
@@ -171,7 +171,7 @@
                     type: 'post',
                     data: {rowId:rowId, qty:qty},
                     dataType: 'json',
-                    success: function(respone) {
+                    success: function(response) {
                         window.location.href = '{{ route("front.cart") }}'
 
                     }
@@ -185,7 +185,7 @@
                     type: 'post',
                     data: {rowId:rowId},
                     dataType: 'json',
-                    success: function(respone) {
+                    success: function(response) {
                         window.location.href = '{{ route("front.cart") }}'
 
                     }
