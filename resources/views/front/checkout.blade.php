@@ -377,6 +377,8 @@
                         $("#grandTotal").html('Rp '+response.grandTotal);
                         $("#discount_value").html('Rp '+response.discount);
                         $("#discount-response-wrapper").html(response.discountString)
+                    } else {
+                        $("#discount-response-wrapper").html("<span class ='text-danger'>"+response.message+"</span>")
                     }
                 }
             });
