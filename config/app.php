@@ -185,6 +185,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        // Perbaikan Dikit
 
         'Image' => Intervention\Image\Facades::class
 
