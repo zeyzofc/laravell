@@ -62,6 +62,8 @@ Route::group(['prefix' => 'account'],function(){
 
     Route::group(['middleware' => 'auth'],function(){
         Route::get('/profile',[AuthController::class,'profile'])->name('account.profile');
+        Route::get('/my-orders',[AuthController::class,'orders'])->name('account.orders');
+        Route::get('/order-detail/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
         Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
     });
 });
@@ -76,7 +78,6 @@ Route::group(['prefix' => 'admin'],function(){
     });
 
     Route::group(['middleware' => 'admin.auth'],function(){
-
         Route::get('/dashboard', [HomeController::class,'index'])->name('admin.dashboard');
         Route::get('/logout', [HomeController::class,'logout'])->name('admin.logout');
 
