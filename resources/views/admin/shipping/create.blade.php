@@ -75,7 +75,7 @@
 											<td>
 												{{ ($shippingCharge->country_id == 'rest_of_world') ? 'Rest of the World' : $shippingCharge->name }}
 											</td>
-											<td>${{ $shippingCharge->amount }}</td>
+											<td>Rp {{ number_format($shippingCharge->amount) }}</td>
 											<td>
 												<a href="{{ route('shipping.edit', $shippingCharge->id) }}" class="btn btn-primary">Edit</a>
 												<a href="javascript:void(0);" onclick="deleteRecord({{ $shippingCharge->id }});" class="btn btn-danger">Delete</a>

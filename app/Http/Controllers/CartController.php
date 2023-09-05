@@ -495,7 +495,7 @@ class CartController extends Controller
             if ($subTotal < $code->min_amount) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'To Use this coupon, your minimum order amount must be at least ' . number_format($code->min_amount,2) . '. Please add more items to your cart to meet this requirement.',
+                    'message' => 'To Use this coupon, your minimum order amount must be at least Rp ' . number_format($code->min_amount) . '. Please add more items to your cart to meet this requirement.',
                 ]);
             }
         }
