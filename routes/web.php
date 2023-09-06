@@ -36,6 +36,11 @@ use Illuminate\Http\Request;
 // return view('welcome');
 // });
 
+// Route::get('/test', function () {
+//     orderEmail(20);
+
+// });
+
 
 Route::get('/',[FrontController::class,'index'])->name('front.home');
 Route::get('/shop/{categorySlug?}/{subCategory?}',[ShopController::class,'index'])->name('front.shop');
