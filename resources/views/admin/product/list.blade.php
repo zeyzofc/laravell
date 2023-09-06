@@ -74,7 +74,7 @@
 
                                                     </td>
                                                     <td><a href="#">{{ $product->title }}</a></td>
-                                                    <td>{{ $product->price }}</td>
+                                                    <td>Rp {{ number_format($product->price,2) }}</td>
                                                     <td>{{ $product->qty }} Left in Stock</td>
                                                     <td>{{ $product->sku }}</td>
                                                     <td>

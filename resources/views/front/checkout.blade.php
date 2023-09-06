@@ -122,7 +122,7 @@
 
                             <div class="d-flex justify-content-between pb-2">
                                 <div class="h6">{{ $item->name }} X {{ $item->qty }}</div>
-                                <div class="h6">Rp {{ $item->price*$item->qty }}</div>
+                                <div class="h6">Rp {{ number_format($item->price*$item->qty,2) }}</div>
                             </div>
 
                             @endforeach
@@ -166,12 +166,12 @@
                         <h3 class="card-title h5 mb-3">Select Payment Method</h3>
                         <div class="">
                             <input checked type="radio" name="payment_method" value="cod" id="payment_method_one">
-                            <label for="payment_method_one" class="form-check-label">COD</label>
+                            <label for="payment_method_one" class="form-check-label">Cash on Delivery</label>
                         </div>
 
                         <div class="">
                             <input type="radio" name="payment_method" value="cod" id="payment_method_two">
-                            <label for="payment_method_two" class="form-check-label">Stripe</label>
+                            <label for="payment_method_two" class="form-check-label">Midtrans</label>
                         </div>
 
                         <div class="card-body p-0 d-none" id="card-payment-form">

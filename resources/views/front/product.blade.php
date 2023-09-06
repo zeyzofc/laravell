@@ -50,10 +50,10 @@
                         <small class="pt-1">(99 Reviews)</small>
                     </div>
                         @if ($product->compare_price > 0)
-                        <h2 class="price text-secondary"><del>${{ $product->compare_price }}</del></h2>
+                        <h2 class="price text-secondary"><del>Rp {{ number_format($product->compare_price,2) }}</del></h2>
                         @endif
                         
-                        <h2 class="price ">${{ $product->price }}</h2>
+                        <h2 class="price ">Rp {{ number_format($product->price,2) }}</h2>
 
                         {!! $product->short_description !!}
 
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                     <div class="card-body text-center mt-3">
-                        <a class="h6 link" href="">{{ $relProduct->title }}</a>
+                        <a class="h6 link" href="{{ route("front.product",$relProduct->slug) }}">{{ $relProduct->title }}</a>
                         <div class="price mt-2">
                             <span class="h5"><strong>Rp{{ $relProduct->price }}</strong></span>
                             @if ($relProduct->compare_price > 0)

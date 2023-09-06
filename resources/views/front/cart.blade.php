@@ -67,7 +67,7 @@
                                             <h2>{{ $item->name }}</h2>
                                         </div>
                                     </td>
-                                    <td>Rp {{ $item->price }}</td>
+                                    <td>Rp {{ number_format($item->price,2) }}</td>
                                     <td>
                                         <div class="input-group quantity mx-auto" style="width: 100px;">
                                             <div class="input-group-btn">
@@ -84,7 +84,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        Rp {{ $item->price*$item->qty }}
+                                        Rp {{ number_format($item->price*$item->qty,2) }}
                                     </td>
                                     <td>
                                         <button class="btn btn-sm btn-danger" onclick="deleteItem('{{ $item->rowId }}');"><i class="fa fa-times"></i></button>
