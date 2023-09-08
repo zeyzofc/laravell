@@ -15,6 +15,10 @@
 <section class=" section-11 ">
 <div class="container  mt-5">
     <div class="row">
+        <div class= "col-md-12">
+            @include('front.account.common.message')
+        </div>
+
         <div class="col-md-3">
             @include('front.account.common.sidebar')
         </div>
@@ -53,10 +57,14 @@
                                 </div>
                             </div>
                             <div class="pt-2 ps-sm-3 mx-auto mx-sm-0 text-center">
-                                <button class="btn btn-outline-danger btn-sm" type="button"><i class="fas fa-trash-alt me-2"></i>Remove</button>
+                                <button onclick="removeProduct({{ $wishlist->product_id}});" class="btn btn-outline-danger btn-sm" type="button"><i class="fas fa-trash-alt me-2"></i>Remove</button>
                             </div>
                         </div>
                     @endforeach
+                    @else
+                        <div>
+                            <h3 class="h5">Your wishlist is empty!!</h3>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -65,4 +73,25 @@
 </div>
 </section>
 
+@endsection
+
+@section('customJs')
+<script>
+    function removeProduct(id) {
+        $.ajax({
+                url: '{{ route("account.removeProductFromWishList") }}',
+                type: 'post',
+                data: {id:id},
+                dataType: 'json',
+                success: function(response){
+					console.log(response);
+                    if (response.status == true) {
+						window.location.href = '{{ route("account.wishlist") }}';
+                    }
+                }
+            });
+    }
+
+
+</script>
 @endsection
