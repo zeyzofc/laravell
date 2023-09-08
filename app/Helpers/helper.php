@@ -32,7 +32,7 @@ function orderEmail($orderId, $userType="customer") {
     }
 
     $mailData = [
-        'subject' => 'Thanks for your order',
+        'subject' => $subject,
         'order' => $order,
         'userType'  => $userType
 
@@ -40,7 +40,6 @@ function orderEmail($orderId, $userType="customer") {
 
 
     Mail::to($email)->send(new OrderEmail($mailData));
-    //dd($order);
 }
 
     function getCountryInfo($id) {

@@ -135,7 +135,7 @@
                                         <h2 class="h4 mb-3">Send Inovice Email</h2>
                                         <div class="mb-3">
                                             <select name="userType" id="userType" class="form-control">
-                                                <option value="Customer">Customer</option>                                                
+                                                <option value="customer">Customer</option>                                                
                                                 <option value="admin">Admin</option>
                                             </select>
                                         </div>
