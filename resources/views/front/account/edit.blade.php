@@ -28,33 +28,25 @@
                             @foreach ($profiles as $profile)
                                 <div class="row">
                             <div class="mb-3">
-                                <label for="name">First Name</label>
-                                <input readonly type="text" name="name" id="name" class="form-control" value="{{ $profile->first_name }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="name">Last Name</label>
-                                <input readonly type="text" name="name" id="name" class="form-control" value="{{ $profile->last_name }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="name">Country</label>
-                                <input readonly type="text" name="name" id="name" class="form-control" value="{{ $profile->country_id }}">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="name" placeholder="Enter Your Name" class="form-control" value="{{ $profile->first_name }}">
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email</label>
-                                <input readonly type="text" name="email" id="email" class="form-control" value="{{ $profile->email }}">
+                                <input type="text" name="email" id="email" placeholder="Enter Your Email" class="form-control" value="{{ $profile->email }}">
                             </div>
                             <div class="mb-3">
                                 <label for="phone">Phone</label>
-                                <input readonly type="text" name="phone" id="phone" class="form-control" value="{{ $profile->mobile }}">
+                                <input type="text" name="phone" id="phone" placeholder="Enter Your Phone" class="form-control" value="{{ $profile->mobile }}">
                             </div>
 
                             <div class="mb-3">
                                 <label for="phone">Address</label>
-                                <textarea readonly name="address" id="address" class="form-control" cols="30" rows="5">{{ $profile->address }}</textarea>
+                                <textarea name="address" id="address" class="form-control" cols="30" rows="5" placeholder="Enter Your Address">{{ $profile->address }}</textarea>
                             </div>
 
                             <div class="d-flex">
-                                <a href="{{ route('account.edit', $profile->id) }}" class="btn btn-dark">Edit Profile</a>
+                                <button class="btn btn-dark">Update</button>
                             </div>
                         </div>
                             @endforeach

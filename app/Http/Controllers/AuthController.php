@@ -90,6 +90,18 @@ class AuthController extends Controller
         return view('front.account.profile',$data);
     }
 
+    public function edit($id, Request $request){
+        
+        $profiles = CustomerAddress::where('user_id',Auth::user()->id)->get();
+        if (empty($profiles)) {
+            $request->session()->flash('error','Record Not Found');
+            return redirect()->route('account.profile');
+        }
+        $data = [];
+        $data['profiles'] = $profiles;
+        return view('front.account.edit',$data);
+    }
+
     public function logout() {
         Auth::logout();
         return redirect()->route('account.login')
