@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
@@ -83,7 +84,10 @@ class AuthController extends Controller
     }
 
     public function profile() {
-        return view('front.account.profile');
+        $profiles = CustomerAddress::where('user_id',Auth::user()->id)->get();
+        $data = [];
+        $data['profiles'] = $profiles;
+        return view('front.account.profile',$data);
     }
 
     public function logout() {

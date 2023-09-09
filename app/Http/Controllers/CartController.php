@@ -28,7 +28,7 @@ class CartController extends Controller
             ]);
         }
 
-        if (Cart::count() > 0) {
+        if (Cart::count() >= 0) {
              
             $cartContent = Cart::content();
             $productAlreadyExist = false;
