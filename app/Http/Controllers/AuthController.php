@@ -84,22 +84,72 @@ class AuthController extends Controller
     }
 
     public function profile() {
-        $profiles = CustomerAddress::where('user_id',Auth::user()->id)->get();
+        $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
         $data = [];
-        $data['profiles'] = $profiles;
+        $data['customerAddress'] = $customerAddress;
         return view('front.account.profile',$data);
     }
 
     public function edit($id, Request $request){
         
-        $profiles = CustomerAddress::where('user_id',Auth::user()->id)->get();
-        if (empty($profiles)) {
+        $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
+        if (empty($customerAddress)) {
             $request->session()->flash('error','Record Not Found');
             return redirect()->route('account.profile');
         }
         $data = [];
-        $data['profiles'] = $profiles;
+        $data['customerAddress'] = $customerAddress;
         return view('front.account.edit',$data);
+    }
+
+    public function update($id, Request $request) {
+
+        $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
+
+        if(empty($customerAddress)) {
+            $request->session()->flash('error', 'Record not found,');
+            return response()->json([
+                'status' => false,
+                'notFound' => true
+            ]);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|min:5',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'address' => 'required|min:30',
+            'city' => 'required',
+            'state' => 'required',
+            'zip' => 'required',
+            'mobile' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+            $customerAddress->first_name = $request->first_name;
+            $customerAddress->last_name = $request->last_name;
+            $customerAddress->email = $request->email;
+            $customerAddress->mobile = $request->mobile;
+            $customerAddress->address = $request->address;
+            $customerAddress->apartment = $request->apartment;
+            $customerAddress->city = $request->city;
+            $customerAddress->state = $request->state;
+            $customerAddress->zip = $request->zip;
+            $customerAddress->save();
+
+            $request->session()->flash('success','Profile updated successfully.');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Profile updated successfully'
+            ]);
+
+    } else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     public function logout() {

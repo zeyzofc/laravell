@@ -22,7 +22,7 @@
                         <form action="" id="editBrandForm" name="editBrandForm" method="post">
                         @csrf
 						<div class="card">
-							<div class="card-body">								
+							<div class="card-body">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="mb-3">
@@ -47,9 +47,9 @@
                                             </select>
                                             <p></p>
                                         </div>
-									</div>										
+									</div>
 								</div>
-							</div>							
+							</div>
 						</div>
 						<div class="pb-5 pt-3">
 							<button type="submit" class="btn btn-primary">Update</button>
