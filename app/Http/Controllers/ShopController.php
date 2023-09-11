@@ -94,7 +94,7 @@ class ShopController extends Controller
         if ($product->related_products != '') {
             $productArray = explode(',',$product->related_products);
 
-            $relatedProducts = Product::WhereIn('id', $productArray)->get();
+            $relatedProducts = Product::WhereIn('id', $productArray)->where('status',1)->get();
         }
         
         $data['product'] = $product;
