@@ -245,6 +245,14 @@
 
             //Price Slider
             url += '&price_min='+slider.result.from+'&price_max='+slider.result.to;
+
+            // Search
+            var keyword = $("#search").val();
+
+            if(keyword.length > 0) {
+                url += '&search='+keyword;
+
+            }
             
             //Sorting Product
             url += '&sort='+$("#sort").val()

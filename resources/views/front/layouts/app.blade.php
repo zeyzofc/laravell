@@ -63,12 +63,12 @@
 				@else
 				<a href="{{ route('account.login') }}" class="nav-link text-dark">Login/Register</a>	
 				@endif
-				<a href="{{ route('admin.login') }}" class="nav-link text-dark">Login Admin</a>
+				<form action="{{ route('front.shop') }}" method="get">
 				{{-- <a href="account.php" class="nav-link text-dark">My Account</a> --}}
 				<form action="">
 					<div class="input-group">
-						<input type="text" placeholder="Search For Products" class="form-control" aria-label="Amount (to the nearest dollar)">
-						<span class="input-group-text">
+						<input value="{{ Request::get('search') }}" placeholder="Search For Products" class="form-control" name="search" id="search">
+						<button type="submit" class ="input-group-text">
 							<i class="fa fa-search"></i>
 					  	</span>
 					</div>

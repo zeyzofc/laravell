@@ -49,6 +49,11 @@ class ShopController extends Controller
         }
 
     }
+
+    if(!empty($request->get('search'))) {
+        $products = $products->where('title','like','%'.$request->get('search').'%');
+        
+    }
     
     //$products = Product::orderBy('id', 'DESC')->where('status',1)->get();
     if ($request->get('sort') != '') {
