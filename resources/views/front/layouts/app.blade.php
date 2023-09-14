@@ -45,7 +45,6 @@
 	<link rel="shortcut icon" type="image/x-icon" href="#" />
 
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	
 </head>
 <body data-instant-intensity="mousedown">
 <div class="bg-light top-header">

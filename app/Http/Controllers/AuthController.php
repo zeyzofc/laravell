@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Midtrans\Snap;
 class AuthController extends Controller
 {
     public function login() {
@@ -172,20 +172,42 @@ class AuthController extends Controller
     public function orderDetail($id) {
         $data = [];
         $user = Auth::user();
-        $order = Order::where('user_id',$user->id)->where('id',$id)->first();
+        $order = Order::where('user_id', $user->id)->where('id', $id)->first();
         $data['order'] = $order;
 
-        $orderItems = OrderItem::where('order_id',$id)->get();
-
+        $orderItems = OrderItem::where('order_id', $id)->get();
         $data['orderItems'] = $orderItems;
 
-        $orderItemsCount = OrderItem::where('order_id',$id)->count();
-
+        $orderItemsCount = OrderItem::where('order_id', $id)->count();
         $data['orderItemsCount'] = $orderItemsCount;
 
-        return view('front.account.order-detail',$data);
-    }
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-WRQZUH4nYcmYsxStz4MTbWSR';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
 
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $order->id,
+                'gross_amount' => $order->grand_total,
+            ),
+            'customer_details' => array(
+                'first_name' => $order->first_name,
+                'last_name' => $order->last_name,
+                'email' => $order->email,
+                'phone' => $order->mobile,
+            ),
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        // dd($params, $snapToken);
+        return view('front.account.order-detail', compact('data', 'snapToken'));
+    }
+    
     public function wishlist(){
         $wishlists = Wishlist::where('user_id',Auth::user()->id)->get();
         $data = [];

@@ -57,6 +57,7 @@
 
                         {!! $product->short_description !!}
 
+                        <br>
                         {{-- <a href="javascript:void(0);" onclick="addToCart({{ $product->id }});" class="btn btn-dark"><i class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART</a> --}}
 
                         @if ($product->track_qty == 'Yes')
@@ -102,8 +103,8 @@
                         </div>
                     </div>
                 </div>
-            </div> 
-        </div>           
+            </div>
+        </div>
     </div>
 </section>
 
