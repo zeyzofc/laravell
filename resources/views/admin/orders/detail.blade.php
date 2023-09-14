@@ -165,7 +165,7 @@
     $("#changeOrderStatusForm").submit(function(event){
         event.preventDefault();
 
-        if(confirm("Are you sure you want to change status?")) {
+        if(confirm("Are You Sure You Want to Change Status?")) {
 
             $.ajax({
                 url : '{{ route("orders.changeOrderStatus",$order->id) }}',
@@ -183,7 +183,7 @@
     $("#sendInvoiceEmail").submit(function(event){
         event.preventDefault();
 
-        if(confirm("Are you sure you want to send email?")) {
+        if(confirm("Are You Sure You Want to Send Email?")) {
                 $.ajax({
                 url : '{{ route("orders.sendInvoiceEmail",$order->id) }}',
                 type : 'post',
