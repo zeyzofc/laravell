@@ -84,74 +84,43 @@ class AuthController extends Controller
     }
 
     public function profile() {
-        $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
-        $data = [];
-        $data['customerAddress'] = $customerAddress;
-        return view('front.account.profile',$data);
+        $user = User::where('id', Auth::user()->id)->first();
+        return view('front.account.profile',[
+            'user' => $user
+        ]);
     }
 
-    public function edit($id, Request $request){
-        
-        $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
-        if (empty($customerAddress)) {
-            $request->session()->flash('error','Record Not Found');
-            return redirect()->route('account.profile');
-        }
-        $data = [];
-        $data['customerAddress'] = $customerAddress;
-        return view('front.account.edit',$data);
-    }
-
-    public function update($id, Request $request) {
-
-        $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
-
-        if(empty($customerAddress)) {
-            $request->session()->flash('error', 'Record not found,');
-            return response()->json([
-                'status' => false,
-                'notFound' => true
-            ]);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|min:5',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'address' => 'required|min:30',
-            'city' => 'required',
-            'state' => 'required',
-            'zip' => 'required',
-            'mobile' => 'required',
+    public function updateProfile(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,except,id',
+            'phone' => 'required'
         ]);
 
         if ($validator->passes()) {
-            $customerAddress->first_name = $request->first_name;
-            $customerAddress->last_name = $request->last_name;
-            $customerAddress->email = $request->email;
-            $customerAddress->mobile = $request->mobile;
-            $customerAddress->address = $request->address;
-            $customerAddress->apartment = $request->apartment;
-            $customerAddress->city = $request->city;
-            $customerAddress->state = $request->state;
-            $customerAddress->zip = $request->zip;
-            $customerAddress->save();
+            $user = User::find($userId);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->save();
 
-            $request->session()->flash('success','Profile updated successfully.');
+            session()->flash('success', 'Profile Updated Successfully');
 
             return response()->json([
                 'status' => true,
-                'message' => 'Profile updated successfully'
+                'errors' => 'Profile Updated Successfully'
             ]);
 
-    } else {
+        } else {
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors()
             ]);
         }
     }
-
+    
     public function logout() {
         Auth::logout();
         return redirect()->route('account.login')
