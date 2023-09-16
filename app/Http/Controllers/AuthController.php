@@ -149,11 +149,6 @@ class AuthController extends Controller
         ]);
 
         if ($validator->passes()) {
-            // $user = User::find($userId);
-            // $user->name = $request->name;
-            // $user->email = $request->email;
-            // $user->phone = $request->phone;
-            // $user->save();
 
             CustomerAddress::updateOrCreate (
                 ['user_id' => $userId],
@@ -218,9 +213,9 @@ class AuthController extends Controller
         $data['orderItemsCount'] = $orderItemsCount;
 
         // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-WRQZUH4nYcmYsxStz4MTbWSR';
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
         // Set sanitization on (default)
         \Midtrans\Config::$isSanitized = true;
         // Set 3DS transaction for credit card to true
@@ -242,6 +237,17 @@ class AuthController extends Controller
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         // dd($params, $snapToken);
         return view('front.account.order-detail', compact('data', 'snapToken'));
+    }
+
+    public function callback(Request $request){
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash("sha12", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        if ($hashed == $request->signature_key) {
+            if ($request->transaction_status == 'capture') {
+               $order = Order::find($request->id);
+               $order->update(['payment_status' => 'Paid']);
+            }
+        }
     }
     
     public function wishlist(){

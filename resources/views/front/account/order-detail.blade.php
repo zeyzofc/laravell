@@ -180,18 +180,21 @@
                 onSuccess: function(result) {
                     /* You may add your own js here, this is just example */
                     // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    alert("Payment Success!")
                     console.log(result)
                 },
                 // Optional
                 onPending: function(result) {
                     /* You may add your own js here, this is just example */
                     // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    alert("Waiting Your Payment!")
                     console.log(result)
                 },
                 // Optional
                 onError: function(result) {
                     /* You may add your own js here, this is just example */
                     // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    alert("Payment Failed")
                     console.log(result)
                 }
             });

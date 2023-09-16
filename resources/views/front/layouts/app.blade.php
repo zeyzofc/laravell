@@ -29,6 +29,7 @@
 	<meta name="twitter:image" content="" />
 	<meta name="twitter:image:alt" content="" />
 	<meta name="twitter:card" content="summary_large_image" />
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/slick.css') }}" />

@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 		<title>Laravel Shop :: Administrative Panel</title>
 		<!-- Google Font: Source Sans Pro -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,7 +32,7 @@
 				<ul class="navbar-nav">
 					<li class="nav-item">
 					  	<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-					</li>					
+					</li>
 				</ul>
 				<div class="navbar-nav pl-2">
 					<!-- <ol class="breadcrumb p-0 m-0 bg-white">
