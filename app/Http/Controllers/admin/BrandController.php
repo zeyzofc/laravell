@@ -40,11 +40,11 @@ class BrandController extends Controller
             $brand->status = $request->status;
             $brand->save();
 
-            $request->session()->flash('success','Brands created successfully.');
+            $request->session()->flash('success','Brands Created Successfully.');
 
             return response()->json([
                 'status' => true,
-                'message' => 'Brand added successfully'
+                'message' => 'Brand Added Successfully'
             ]);
 
     } else {
@@ -59,7 +59,7 @@ class BrandController extends Controller
         $brand = Brand::find($id);
 
         if(empty($brand)) {
-            $request->session()->flash('error', 'Record not found,');
+            $request->session()->flash('error', 'Record Not Found,');
             return redirect()->route('brands.index');
         }
 
@@ -72,7 +72,7 @@ class BrandController extends Controller
         $brand = Brand::find($id);
 
         if(empty($brand)) {
-            $request->session()->flash('error', 'Record not found,');
+            $request->session()->flash('error', 'Record Not Found,');
             return response()->json([
                 'status' => false,
                 'notFound' => true
@@ -90,11 +90,11 @@ class BrandController extends Controller
             $brand->status = $request->status;
             $brand->save();
 
-            $request->session()->flash('success','Brands updated successfully.');
+            $request->session()->flash('success','Brands Updated Successfully.');
 
             return response()->json([
                 'status' => true,
-                'message' => 'Brand updated successfully'
+                'message' => 'Brand Updated Successfully'
             ]);
 
     } else {
@@ -118,11 +118,11 @@ class BrandController extends Controller
 
             $brand->delete();
 
-            $request->session()->flash('success','Brand Deleted successfully.');
+            $request->session()->flash('success','Brand Deleted Successfully.');
 
             return response([
                 'status' => true,
-                'message' => 'Brand Deleted successfully.'
+                'message' => 'Brand Deleted Successfully.'
             ]);
     }
 }

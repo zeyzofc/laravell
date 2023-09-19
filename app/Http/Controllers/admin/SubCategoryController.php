@@ -49,11 +49,11 @@ class SubCategoryController extends Controller
             $subCategory->category_id = $request->category;
             $subCategory->save();
 
-            $request->session()->flash('success','Sub Category created successfully.');
+            $request->session()->flash('success','Sub Category Created Successfully.');
 
             return response([
                 'status' => true,
-                'message' => 'Sub Category created successfully.'
+                'message' => 'Sub Category Created Successfully.'
             ]);
 
         }else {
@@ -106,11 +106,11 @@ class SubCategoryController extends Controller
             $subCategory->category_id = $request->category;
             $subCategory->save();
 
-            $request->session()->flash('success','Sub Category Updated successfully.');
+            $request->session()->flash('success','Sub Category Updated Successfully.');
 
             return response([
                 'status' => true,
-                'message' => 'Sub Category Updated successfully.'
+                'message' => 'Sub Category Updated Successfully.'
             ]);
 
         }else {
@@ -134,11 +134,11 @@ class SubCategoryController extends Controller
 
             $subCategory->delete();
 
-            $request->session()->flash('success','Sub Category Deleted successfully.');
+            $request->session()->flash('success','Sub Category Deleted Successfully.');
 
             return response([
                 'status' => true,
-                'message' => 'Sub Category Deleted successfully.'
+                'message' => 'Sub Category Deleted Successfully.'
             ]);
     }
 }

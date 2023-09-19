@@ -34,7 +34,7 @@ class AdminLoginController extends Controller
 
                     Auth::guard('admin')->logout();
                     return redirect()->route('admin.login')
-                    ->with('error', 'You are not authorized to access admin panel.');
+                    ->with('error', 'You Are Not Authorized to Access Admin Panel.');
                 }
 
             }else{

@@ -42,20 +42,20 @@ class CartController extends Controller
             if ($productAlreadyExist == false) {
                 Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '' ]);
                 $status = true;
-                $message = '<strong>'.$product->title.'</strong> added in your cart successfully.';
+                $message = '<strong>'.$product->title.'</strong> Added in Your Cart Successfully.';
                 session()->flash('success', $message);
 
             } else {
                 $status = false;
-                $message = $product->title.' already added in Cart';
+                $message = $product->title.' Already Added in Cart';
             }
 
 
         } else {
-            echo "Cart is Empty Now Adding a product in cart";
+            echo "Cart is Empty Now Adding a Product in Cart";
             Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '' ]);
             $status = true;
-            $message = '<strong>'.$product->title.'</strong> added in your cart successfully.';
+            $message = '<strong>'.$product->title.'</strong> Added in Your Cart Successfully.';
             session()->flash('success', $message);
         }
 
@@ -83,17 +83,17 @@ class CartController extends Controller
         if ($product->track_qty == 'Yes') {
             if ($qty <= $product->qty) {
                 Cart::update($rowId, $qty);
-                $message = 'Cart updated successfully';
+                $message = 'Cart Updated Successfully';
                 $status = true;
                 session()->flash('success', $message);
             } else {
-                $message = 'Requested qty ('.$qty.') not available in stock.';
+                $message = 'Requested QTY ('.$qty.') Not Available in Stock.';
                 $status = false;
                 session()->flash('error', $message);
             }
         } else {
             Cart::update($rowId, $qty);
-                $message = 'Cart updated successfully';
+                $message = 'Cart Updated Successfully';
                 $status = true;
                 session()->flash('success', $message);
         }
@@ -111,7 +111,7 @@ class CartController extends Controller
         $itemInfo = Cart::get($request->rowId);
 
         if($itemInfo == null) {
-            $errorMessage = 'Item not found in cart';
+            $errorMessage = 'Item Not Found in Cart';
             session()->flash('error', $errorMessage);
 
             return response()->json([
@@ -122,7 +122,7 @@ class CartController extends Controller
 
         Cart::remove($request->rowId);
 
-        $message = 'Item removed from cart successfully';
+        $message = 'Item Removed from Cart Successfully';
         session()->flash('success', $message);
             return response()->json([
                 'status' => true,
@@ -219,7 +219,7 @@ class CartController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Please fix the errors',
+                'message' => 'Please Fix the Errors',
                 'status' => false,
                 'errors' => $validator->errors()
             ]);
@@ -338,14 +338,14 @@ class CartController extends Controller
             // Kirim Email
             orderEmail($order->id,'customer');
 
-            session()->flash('success', 'You have successfully placed your order.');
+            session()->flash('success', 'You Have Successfully Placed Your Order.');
 
             Cart::destroy();
 
             session()->forget('code');
 
             return response()->json([
-                'message' => 'Order saved successfully',
+                'message' => 'Order Saved Successfully',
                 'orderId' => $order->id,
                 'status' => true
             ]);
@@ -436,7 +436,7 @@ class CartController extends Controller
         if (!Auth::check()) {
         return response()->json([
             'status' => false,
-            'message' => 'User is not authenticated.',
+            'message' => 'User is Not Authenticated.',
         ]);
     }
     
@@ -461,7 +461,7 @@ class CartController extends Controller
             if ($now->lt($startDate)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Coupon is not yet valid',
+                    'message' => 'Coupon is Not Valid Yet',
                 ]);
             }
         }
@@ -473,7 +473,7 @@ class CartController extends Controller
             if ($now->gt($endDate)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Coupon has expired',
+                    'message' => 'Coupon Has Expired',
                 ]);
             }
         }
@@ -485,7 +485,7 @@ class CartController extends Controller
             if ($couponUsed >= $code->max_uses) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Coupon has expired due to reaching the maximum allowed uses.',
+                    'message' => 'Coupon Has Expired Due to Reaching the Maximum Allowed Uses.',
                 ]);
             }
         }
@@ -499,7 +499,7 @@ class CartController extends Controller
             if ($couponUsedUser >= $code->max_uses_user) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Coupon has expired for your account due to reaching the maximum allowed uses.',
+                    'message' => 'Coupon Has Expired for Your Account Due to Reaching the Maximum Allowed Uses.',
                 ]);
             }
         }
@@ -511,7 +511,7 @@ class CartController extends Controller
             if ($subTotal < $code->min_amount) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'To Use this coupon, your minimum order amount must be at least Rp ' . number_format($code->min_amount) . '. Please add more items to your cart to meet this requirement.',
+                    'message' => 'To Use This Coupon, Your Minimum Order Amount Must be At Least Rp ' . number_format($code->min_amount) . '. Please add more items to your cart to meet this requirement.',
                 ]);
             }
         }

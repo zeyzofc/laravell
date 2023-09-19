@@ -33,7 +33,7 @@ class TempImagesController extends Controller
                 'status' => true,
                 'image_id' => $tempImage->id,
                 'ImagePath' => asset('/temp/thumb/'.$newName),
-                'message' =>  'Image uploaded successfully'
+                'message' =>  'Image Uploaded Successfully'
             ]);
 
         }

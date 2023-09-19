@@ -40,7 +40,7 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            session()->flash('success','You have been registerd successfuly.');
+            session()->flash('success','You Have Been Registerd Successfuly.');
 
             return response()->json([
                 'status' => true,
@@ -74,7 +74,7 @@ class AuthController extends Controller
                 //session()->flash('error', 'Either email/password is incorrect.');
                 return redirect()->route('account.login')
                     ->withInput($request->only('email'))
-                    ->with('error', 'Either email/password is incorrect.');
+                    ->with('error', 'Either Email/Password is Incorrect.');
             }
 
         } else {
@@ -186,7 +186,7 @@ class AuthController extends Controller
     public function logout() {
         Auth::logout();
         return redirect()->route('account.login')
-        ->with('success', 'You successfully logged out!');
+        ->with('success', 'You Successfully Logged Out!');
     }
 
     public function orders() {
@@ -261,13 +261,13 @@ class AuthController extends Controller
         $wishlist = Wishlist::where('user_id',Auth::user()-> id)->where('product_id',$request->id)->first();
 
         if ($wishlist == null) {
-            session()->flash('error','Product alredy removed.');
+            session()->flash('error','Product Alredy Removed.');
             return response()->json([
                 'status' => true,
             ]);
         } else {
             Wishlist::where('user_id',Auth::user()-> id)->where('product_id',$request->id)->delete();
-            session()->flash('success','Product removed successfully.');
+            session()->flash('success','Product Removed Successfully.');
             return response()->json([
                 'status' => true,
             ]);

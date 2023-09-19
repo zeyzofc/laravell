@@ -49,7 +49,7 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            $message = 'User added successfully.';
+            $message = 'User Added Successfully.';
 
             session()->flash('success', $message);
 
@@ -65,6 +65,5 @@ class UserController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
-
     }
 }

@@ -53,7 +53,7 @@ class ProductImageController extends Controller
         if(empty($productImage)){
             return response()->json([
             'status' => false,
-            'message' => 'Image not Found.'
+            'message' => 'Image Not Found.'
         ]);
         }
 
@@ -66,7 +66,7 @@ class ProductImageController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Image deleted Successfully.'
+            'message' => 'Image Deleted Successfully.'
         ]);
     }
 }

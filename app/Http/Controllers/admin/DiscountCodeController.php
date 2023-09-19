@@ -44,7 +44,7 @@ class DiscountCodeController extends Controller
                 if ($startAt->lte($now) == true) {
                     return response()->json([
                         'status' => false,
-                        'errors' => ['starts_at' => 'Start date can not be less than current time']
+                        'errors' => ['starts_at' => 'Start Date Can Not Be Less Than Current Time']
                     ]);
                 }
             }
@@ -58,7 +58,7 @@ class DiscountCodeController extends Controller
                 if ($expiresAt->gt($startAt) == false) {
                     return response()->json([
                         'status' => false,
-                        'errors' => ['expires_at' => 'Expires date must be greater than start date']
+                        'errors' => ['expires_at' => 'Expires Date Must Be Greater Than Start Date']
                     ]);
                 }
             }
@@ -114,7 +114,7 @@ class DiscountCodeController extends Controller
         $discountCode = DiscountCoupon::find($id);
 
         if ($discountCode == null) {
-            session()->flash('error', 'Record not found');
+            session()->flash('error', 'Record Not Found');
             return response()->json([
                 'status' => true
             ]);
@@ -139,7 +139,7 @@ class DiscountCodeController extends Controller
                 if ($expiresAt->gt($startAt) == false) {
                     return response()->json([
                         'status' => false,
-                        'errors' => ['expires_at' => 'Expires date must be greater than start date']
+                        'errors' => ['expires_at' => 'Expires Date Must Be Greater Than Start Date']
                     ]);
                 }
             }
@@ -178,14 +178,14 @@ class DiscountCodeController extends Controller
         $discountCode = DiscountCoupon::find($id);
 
         if ($discountCode == null) {
-            session()->flash('error', 'Record not found');
+            session()->flash('error', 'Record Not Found');
             return response()->json([
                 'status' => true
             ]);
         }
 
         $discountCode->delete();
-        session()->flash('success', 'Discount coupon deleted successfully.');
+        session()->flash('success', 'Discount Coupon Deleted Successfully.');
         return response()->json([
             'status' => true
         ]);
