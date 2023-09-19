@@ -117,11 +117,11 @@ class ProductController extends Controller
                 }
             }
 
-            $request->session()->flash('success','Product added successfully');
+            $request->session()->flash('success','Product Added Successfully');
 
             return response()->json([
                'status' => true,
-               'message' => 'Product added successfully'
+               'message' => 'Product Added Successfully'
             ]);
 
         }else{
@@ -209,11 +209,11 @@ class ProductController extends Controller
             $product->related_products = (!empty($request->related_products)) ? implode(',',$request->related_products) : '';
             $product->save();
 
-            $request->session()->flash('success','Product Updated successfully');
+            $request->session()->flash('success','Product Updated Successfully');
 
             return response()->json([
                'status' => true,
-               'message' => 'Product Updated successfully'
+               'message' => 'Product Updated Successfully'
             ]);
 
         }else{
@@ -228,7 +228,7 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if(empty($product)){
-            $request->session()->flash('error','Product not Found');
+            $request->session()->flash('error','Product Not Found');
             return response()->json([
                 'status' => false,
                 'notFound' => true

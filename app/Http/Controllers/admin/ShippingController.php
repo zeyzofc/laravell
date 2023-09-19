@@ -35,7 +35,7 @@ class ShippingController extends Controller
 
             $count = ShippingCharge::where('country_id',$request->country)->count();
             if($count > 0) {
-            session()->flash('error', 'Shipping already added');
+            session()->flash('error', 'Shipping Already Added');
             return response()->json([
                 'status' => true
                 ]);
@@ -46,7 +46,7 @@ class ShippingController extends Controller
             $shipping->amount = $request->amount;
             $shipping->save();
 
-            session()->flash('success', 'Shipping added successfully');
+            session()->flash('success', 'Shipping Added Successfully');
 
             return response()->json([
                 'status' => true,
@@ -85,7 +85,7 @@ class ShippingController extends Controller
 
             if ($shipping == null) {
 
-                session()->flash('error', 'Shipping not found');
+                session()->flash('error', 'Shipping Not Found');
     
                 return response()->json([
                 'status' => true,
@@ -98,7 +98,7 @@ class ShippingController extends Controller
             $shipping->amount = $request->amount;
             $shipping->save();
 
-            session()->flash('success', 'Shipping updated successfully');
+            session()->flash('success', 'Shipping Updated Successfully');
 
             return response()->json([
                 'status' => true,
@@ -116,7 +116,7 @@ class ShippingController extends Controller
         $shippingCharge =  ShippingCharge::find($id);
 
         if ($shippingCharge == null) {
-            session()->flash('error', 'Shipping not found');
+            session()->flash('error', 'Shipping Not Found');
 
             return response()->json([
             'status' => true,
@@ -126,7 +126,7 @@ class ShippingController extends Controller
 
         $shippingCharge->delete();
 
-        session()->flash('success', 'Shipping deleted successfully');
+        session()->flash('success', 'Shipping Deleted Successfully');
 
         return response()->json([
             'status' => true,
