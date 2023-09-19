@@ -95,12 +95,14 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
+            'status'=> 'required'
         ]);
 
         if ($validator->passes()) {
             $users->name = $request->name;
             $users->email = $request->email;
             $users->phone = $request->phone;
+            $users->status = $request->status;
             $users->save();
 
             $request->session()->flash('success','Users updated successfully.');
@@ -140,76 +142,4 @@ class UserController extends Controller
             ]);
     }
 
-
-    public function edit($id, Request $request) {
-        $users = User::find($id);
-
-        if(empty($users)) {
-            $request->session()->flash('error', 'Record not found,');
-            return redirect()->route('users.index');
-        }
-        $data['users'] = $users;
-        return view('admin.users.edit',$data);
-    }
-
-    public function update($id, Request $request) {
-
-        $users = User::find($id);
-
-        if(empty($users)) {
-            $request->session()->flash('error', 'Record not found,');
-            return response()->json([
-                'status' => false,
-                'notFound' => true
-            ]);
-        }
-
-        $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-        ]);
-
-        if ($validator->passes()) {
-            $users->name = $request->name;
-            $users->email = $request->email;
-            $users->phone = $request->phone;
-            $users->save();
-
-            $request->session()->flash('success','Users updated successfully.');
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Users updated successfully'
-            ]);
-
-    } else {
-            return response()->json([
-                'status' => false,
-                'errors' => $validator->errors()
-            ]);
-        }
-    }
-    
-
-    public function destroy($id, Request $request){
-        $users = User::find($id);
-        
-         if (empty($users)) {
-                $request->session()->flash('error','Record Not Found');
-                return response([
-                    'status' => false,
-                    'notFound' =>true
-                ]);
-            }
-
-            $users->delete();
-
-            $request->session()->flash('success','Users Deleted successfully.');
-
-            return response([
-                'status' => true,
-                'message' => 'Users Deleted successfully.'
-            ]);
-    }
 }

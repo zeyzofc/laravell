@@ -34,14 +34,14 @@
 										<div class="col-md-6">
 											<div class="mb-3">
 												<label for="slug">Email</label>
-												<input type="text" name="email" class="form-control" placeholder="email" value="{{$users->email}}">
+												<input type="text" name="email" id="email" class="form-control" placeholder="Email" value="{{$users->email}}">
 												<p></p>
 											</div>
 										</div>
                                         <div class="col-md-6">
 											<div class="mb-3">
 												<label for="slug">Phone</label>
-												<input type="text" name="phone" class="form-control" placeholder="Phone" value="{{$users->phone}}">
+												<input type="text" name="phone" id="phone" class="form-control" placeholder="Phone" value="{{$users->phone}}">
 												<p></p>
 											</div>
 										</div>
