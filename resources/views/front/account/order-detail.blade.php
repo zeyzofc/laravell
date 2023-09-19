@@ -148,12 +148,12 @@
                         <br>
                         <div class="text-md-right">
                             <div class="float-lg-left mb-lg-0 mb-3">
-                                @if ($data['order']->payment_status == 'not paid')
+                                @if ($data['order']->payment_status == '1')
                                     <button class="btn btn-primary btn-icon icon-left" id="pay-button"><i
                                             class="fa fa-credit-card"></i>
                                         Metode Pembayaran</button>
                                         
-                                @elseif ($data['order']->payment_status == 'paid')
+                                @elseif ($data['order']->payment_status == '2')
                                     <a href=""
                                         class="btn btn-success text-white btn-icon icon-left"><i
                                             class="fa fa-credit-card"></i>
@@ -174,7 +174,7 @@
         const payButton = document.querySelector('#pay-button');
         payButton.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Button clicked');
+            // console.log('Button clicked');
             snap.pay("{{ $snapToken }}", {
                 // Optional
                 onSuccess: function(result) {

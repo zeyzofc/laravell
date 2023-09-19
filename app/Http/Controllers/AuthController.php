@@ -11,8 +11,10 @@ use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Midtrans\Snap;
+use App\Services\Midtrans\CreateSnapTokenService;
 class AuthController extends Controller
 {
     public function login() {
@@ -212,44 +214,57 @@ class AuthController extends Controller
         $orderItemsCount = OrderItem::where('order_id', $id)->count();
         $data['orderItemsCount'] = $orderItemsCount;
 
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = config('midtrans.is_production');
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+        $snapToken = $order->snap_token;
+         if (is_null($snapToken)) {
+             // If snap token is still NULL, generate snap token and save it to database
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => $order->id,
-                'gross_amount' => $order->grand_total,
-            ),
-            'customer_details' => array(
-                'first_name' => $order->first_name,
-                'last_name' => $order->last_name,
-                'email' => $order->email,
-                'phone' => $order->mobile,
-            ),
-        );
+             $midtrans = new CreateSnapTokenService($order);
+             $snapToken = $midtrans->getSnapToken();
 
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
-        // dd($params, $snapToken);
+             $order->snap_token = $snapToken;
+             $order->save();
+         }
+
+        //dd($order, $snapToken);
+
         return view('front.account.order-detail', compact('data', 'snapToken'));
-    }
+         
+        // // Set your Merchant Server Key
+        // \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        // \Midtrans\Config::$isProduction = false;
+        // // Set sanitization on (default)
+        // \Midtrans\Config::$isSanitized = true;
+        // // Set 3DS transaction for credit card to true
+        // \Midtrans\Config::$is3ds = true;
 
-    public function callback(Request $request){
-        $serverKey = config('midtrans.server_key');
-        $hashed = hash("sha12", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-        if ($hashed == $request->signature_key) {
-            if ($request->transaction_status == 'capture') {
-               $order = Order::find($request->id);
-               $order->update(['payment_status' => 'Paid']);
-            }
-        }
+        // $params = array(
+        //     'transaction_details' => array(
+        //         'order_id' => $order->id,
+        //         'gross_amount' => $order->grand_total,
+        //     ),
+        //     'customer_details' => array(
+        //         'first_name' => $order->first_name,
+        //         'last_name' => $order->last_name,
+        //         'email' => $order->email,
+        //         'phone' => $order->mobile,
+        //     ),
+        // );
+
+        // $snapToken = \Midtrans\Snap::getSnapToken($params);
+        // //dd($params, $snapToken);
+        // return view('front.account.order-detail', compact('data', 'snapToken'));
     }
     
+    public function callback(Request $request){
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        if ($hashed == $request->signature_key) {
+            $order = Order::find($request->order_id);
+            $order->update(['payment_status' => '2']);
+        }
+    }
+
     public function wishlist(){
         $wishlists = Wishlist::where('user_id',Auth::user()->id)->get();
         $data = [];

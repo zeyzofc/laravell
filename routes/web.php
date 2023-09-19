@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\TempImagesController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
@@ -77,7 +78,8 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/my-wishlist',[AuthController::class,'wishlist'])->name('account.wishlist');
         Route::post('/remove-product-from-wishlist',[AuthController::class,'removeProductFromWishList'])->name('account.removeProductFromWishList');
         Route::get('/order-detail/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
-        Route::post('/midtrans-callback', [AuthController::class, 'callback']);
+        Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
+        // Route::post('/midtrans-callback', [AuthController::class, 'callback']);
         Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
 
     });
@@ -156,7 +158,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('/order/change-status/{id}', [OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
         Route::post('/order/send-email/{id}', [OrderController::class,'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
 
-        //Users Route 
+        //Users Route
         Route::get('users',[UserController::class,'index'])->name('users.index');
         Route::get('/users/create', [UserController::class,'create'])->name('users.create');
         Route::post('/users', [UserController::class,'store'])->name('users.store');
