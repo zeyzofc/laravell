@@ -87,6 +87,16 @@ $("#registrationForm").submit(function(event){
 
                 }
 
+                if(errors.phone) {
+                    $("#phone").siblings("p").addClass('invalid-feedback').html(errors.phone);
+                    $("#phone").addClass('is-invalid');
+
+                } else{
+                    $("#phone").siblings("p").removeClass('invalid-feedback').html();
+                    $("#phone").removeClass('is-invalid');
+
+                }
+
                 if(errors.password) {
                     $("#password").siblings("p").addClass('invalid-feedback').html(errors.password);
                     $("#password").addClass('is-invalid');
@@ -104,6 +114,9 @@ $("#registrationForm").submit(function(event){
 
                 $("#email").siblings("p").removeClass('invalid-feedback').html('');
                 $("#email").removeClass('is-invalid');
+
+                $("#phone").siblings("p").removeClass('invalid-feedback').html('');
+                $("#phone").removeClass('is-invalid');
 
                 $("#password").siblings("p").removeClass('invalid-feedback').html('');
                 $("#password").removeClass('is-invalid');
