@@ -6,7 +6,7 @@
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h1>Edit Users</h1>
+								<h1>Edit User</h1>
 							</div>
 							<div class="col-sm-6 text-right">
 								<a href="{{ route('users.index') }}" class="btn btn-primary">Back</a>
@@ -27,34 +27,42 @@
 										<div class="col-md-6">
 											<div class="mb-3">
 												<label for="name">Name</label>
-												<input type="text" name="name" id="name" class="form-control" placeholder="Name" value="{{$users->name}}">
+												<input value="{{ $user->name }}" type="text" name="name" id="name" class="form-control" placeholder="Name">
 												<p></p>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="mb-3">
 												<label for="slug">Email</label>
-												<input type="text" name="email" id="email" class="form-control" placeholder="Email" value="{{$users->email}}">
+												<input value="{{ $user->email }}" type="text" name="email" id="email" class="form-control" placeholder="Email">
 												<p></p>
 											</div>
 										</div>
                                         <div class="col-md-6">
 											<div class="mb-3">
 												<label for="slug">Phone</label>
-												<input type="text" name="phone" id="phone" class="form-control" placeholder="Phone" value="{{$users->phone}}">
+												<input value="{{ $user->phone }}" type="text" name="phone" id="phone" class="form-control" placeholder="Phone">
 												<p></p>
 											</div>
 										</div>
                                         <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="email">Status</label>
-                                                <select name="status" id="status" class="form-control">
-                                                    <option {{ ($users->status ==1) ? 'selected' : '' }} value="1">Active</option>
-                                                    <option {{ ($users->status ==0) ? 'selected' : '' }} value="0">Inactive</option>
+											<div class="mb-3">
+												<label for="slug">Password</label>
+												<input type="text" name="password" id="password" class="form-control" placeholder="Password">
+												<span>To Change Password You Have to Enter a Value, Otherwise Leave Blank</span>
+												<p></p>
+											</div>
+										</div>
+                                        <div class="col-md-6">
+											<div class="mb-3">
+												<label for="slug">Status</label>
+												<select name="status" id="status" class="form-control">
+                                                   <option {{ ($user->status == 1) ? 'selected' : '' }} value="1">Active</option>
+                                                   <option {{ ($user->status == 0) ? 'selected' : '' }} value="0">Block</option>
                                                 </select>
-                                                <p></p>
-                                            </div>
-                                        </div>
+												<p></p>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -77,7 +85,7 @@
 		$("button[type=submit]").prop('disabled',true);
 
         $.ajax({
-            url: '{{ route("users.update",$users->id) }}',
+            url: '{{ route("users.update",$user->id) }}',
             type: 'put',
             data: element.serializeArray(),
             dataType: 'json',
@@ -85,8 +93,6 @@
 				$("button[type=submit]").prop('disabled',false);
 
                 if(response["status"] == true){
-
-                    window.location.href="{{ route('users.index') }}";
 
                     $("#name").removeClass('is-invalid')
                         .siblings('p')
@@ -100,12 +106,13 @@
                         .siblings('p')
                         .removeClass('invalid-feedback').html("");
 
+                    $("#password").removeClass('is-invalid')
+                        .siblings('p')
+                        .removeClass('invalid-feedback').html("");
+
+                    window.location.href="{{ route('users.index') }}";	
+
                 }else{
-
-					if(response['notFound'] == true) {
-						window.location.href="{{ route('users.index') }}";
-					}
-
                     var errors = response['errors']
                     if(errors['name']){
                         $("#name").addClass('is-invalid').
@@ -136,6 +143,16 @@
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
 					}
+
+                    if (errors['password']){
+						$("#password").addClass('is-invalid').
+						siblings('p').
+						addClass('invalid-feedback').html(errors['password']);
+					}else{
+						$("#password").removeClass('is-invalid')
+						.siblings('p')
+						.removeClass('invalid-feedback').html("");
+					}
 				}
 
             }, error: function(jqXHR, exception){
@@ -143,23 +160,5 @@
             }
         })
     });
-
-	$('#name').change(function(){
-		element = $(this);
-		$("button[type=submit]").prop('disabled',true);
-		$.ajax({
-			url: '{{ route("getSlug") }}',
-			type: 'get',
-			data: {title: element.val()},
-			dataType: 'json',
-			success: function(response){
-				$("button[type=submit]").prop('disabled',false);
-					if(response["status"] == true) {
-						$("#slug").val(response["slug"]);
-					}
-				}
-			});
-	});
-
 </script>
 @endsection
