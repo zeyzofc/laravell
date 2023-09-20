@@ -4,40 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Services\Midtrans\CallbackService;
-use Illuminate\Support\Facades\Log;
 
 class PaymentCallbackController extends Controller
 {
     public function receive()
     {
         $callback = new CallbackService;
- 
+
         if ($callback->isSignatureKeyVerified()) {
             $notification = $callback->getNotification();
+            $order = $callback->getOrder();
 
-            Log::info('Notification data: ' . json_encode($notification->toArray())); // Log the notification data
-            
-            $order = $notification->getOrder();
- 
-            if ($notification->isSuccess()) {
+            if ($notification->isSuccess()) { // Change this line
                 Order::where('id', $order->id)->update([
                     'payment_status' => 2,
                 ]);
             }
- 
+
             if ($notification->isExpire()) {
                 Order::where('id', $order->id)->update([
                     'payment_status' => 3,
                 ]);
             }
- 
+
             if ($notification->isCancelled()) {
                 Order::where('id', $order->id)->update([
                     'payment_status' => 4,
                 ]);
             }
- 
+
             return response()
                 ->json([
                     'success' => true,

@@ -228,7 +228,6 @@ class AuthController extends Controller
          }
 
         //dd($order, $snapToken);
-
         return view('front.account.order-detail', compact('data', 'snapToken'));
          
         // // Set your Merchant Server Key
@@ -256,15 +255,6 @@ class AuthController extends Controller
         // $snapToken = \Midtrans\Snap::getSnapToken($params);
         // //dd($params, $snapToken);
         // return view('front.account.order-detail', compact('data', 'snapToken'));
-    }
-    
-    public function callback(Request $request){
-        $serverKey = config('midtrans.server_key');
-        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-        if ($hashed == $request->signature_key) {
-            $order = Order::find($request->order_id);
-            $order->update(['payment_status' => '2']);
-        }
     }
 
     public function wishlist(){

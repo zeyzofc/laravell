@@ -79,7 +79,6 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/remove-product-from-wishlist',[AuthController::class,'removeProductFromWishList'])->name('account.removeProductFromWishList');
         Route::get('/order-detail/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
         Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
-        // Route::post('/midtrans-callback', [AuthController::class, 'callback']);
         Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
 
     });
