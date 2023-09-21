@@ -12,24 +12,24 @@ class PaymentCallbackController extends Controller
     public function receive()
     {
         $callback = new CallbackService;
-
+    
         if ($callback->isSignatureKeyVerified()) {
             $notification = $callback->getNotification();
             $order = $callback->getOrder();
 
-            if ($notification->isSuccess()) { // Change this line
+            if ($callback->isSuccess()) {
                 Order::where('id', $order->id)->update([
                     'payment_status' => 2,
                 ]);
             }
 
-            if ($notification->isExpire()) {
+            if ($callback->isExpire()) {
                 Order::where('id', $order->id)->update([
                     'payment_status' => 3,
                 ]);
             }
 
-            if ($notification->isCancelled()) {
+            if ($callback->isCancelled()) {
                 Order::where('id', $order->id)->update([
                     'payment_status' => 4,
                 ]);

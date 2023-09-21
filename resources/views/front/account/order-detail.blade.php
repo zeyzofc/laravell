@@ -30,20 +30,12 @@
                             <div class="card-body bg-light mb-3">
                                 <div class="row">
                                     <div class="col-6 col-lg-3">
-                                        <!-- Heading -->
-                                        <h6 class="heading-xxxs text-muted">Order No:</h6>
-                                        <!-- Text -->
-                                        <p class="mb-lg-0 fs-sm fw-bold">
-                                            {{ $data['order']->id }}
-                                        </p>
-                                    </div>
-                                    <div class="col-6 col-lg-3">
-                                        <!-- Heading -->
+                                       <!-- Heading -->
                                         <h6 class="heading-xxxs text-muted">Shipped date:</h6>
                                         <!-- Text -->
                                         <p class="mb-lg-0 fs-sm fw-bold">
                                             <time datetime="2019-10-01">
-                                                @if (!empty($data['order']->shipped_date))
+                                                @if (($data['order']->shipped_date))
                                                     {{ \Carbon\Carbon::parse($data['order']->shipped_date)->format('d M, Y') }}
                                                 @else
                                                     n/a
@@ -53,7 +45,21 @@
                                     </div>
                                     <div class="col-6 col-lg-3">
                                         <!-- Heading -->
-                                        <h6 class="heading-xxxs text-muted">Status:</h6>
+                                        <h6 class="heading-xxxs text-muted">Payment Status</h6>
+                                        <!-- Text -->
+                                        <p class="mb-lg-0 fs-sm fw-bold">
+                                            <time datetime="2019-10-01">
+                                                @if ($data['order']->payment_status == '1')
+                                                    <span class="badge bg-danger">Not Paid</span>
+                                                @else
+                                                    <span class="badge bg-success">Paid</span>
+                                                @endif
+                                            </time>
+                                        </p>
+                                    </div>
+                                    <div class="col-6 col-lg-3">
+                                       <!-- Heading -->
+                                        <h6 class="heading-xxxs text-muted">Order Status:</h6>
                                         <!-- Text -->
                                         <p class="mb-0 fs-sm fw-bold">
                                             @if ($data['order']->status == 'pending')
@@ -68,7 +74,7 @@
                                         </p>
                                     </div>
                                     <div class="col-6 col-lg-3">
-                                        <!-- Heading -->
+                                         <!-- Heading -->
                                         <h6 class="heading-xxxs text-muted">Order Amount:</h6>
                                         <!-- Text -->
                                         <p class="mb-0 fs-sm fw-bold">
@@ -151,13 +157,13 @@
                                 @if ($data['order']->payment_status == '1')
                                     <button class="btn btn-primary btn-icon icon-left" id="pay-button"><i
                                             class="fa fa-credit-card"></i>
-                                        Metode Pembayaran</button>
+                                        Payment Method</button>
                                         
                                 @elseif ($data['order']->payment_status == '2')
                                     <a href=""
                                         class="btn btn-success text-white btn-icon icon-left"><i
-                                            class="fa fa-credit-card"></i>
-                                        Pembayaran Berhasil</a>
+                                            class="fas fa-file-invoice"></i>
+                                        Print Invoice</a>
                                 @endif
                             </div>
                         </div>
@@ -168,8 +174,7 @@
 </section>
 @endsection
 @section('customJs')
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
-    </script>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
     <script>
         const payButton = document.querySelector('#pay-button');
         payButton.addEventListener('click', function(e) {
@@ -181,6 +186,8 @@
                     /* You may add your own js here, this is just example */
                     // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                     alert("Payment Success!")
+                    var orderId = {{ $data['order']->id }};
+                    window.location.href = "{{ route('account.orderDetail', ['orderId' => $data['order']->id]) }}";
                     console.log(result)
                 },
                 // Optional

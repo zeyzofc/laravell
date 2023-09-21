@@ -31,7 +31,7 @@ class CallbackService extends Midtrans
         $transactionStatus = $this->notification->transaction_status;
         $fraudStatus = !empty($this->notification->fraud_status) ? ($this->notification->fraud_status == 'accept') : true;
 
-        return ($statusCode == 200 && $fraudStatus && ($transactionStatus == 'capture' || $transactionStatus == 'settlement'));
+        return ($statusCode == 200 && $fraudStatus && ($transactionStatus == 'capture' || $transactionStatus == 'settlement' || $transactionStatus == 'success'));
     }
 
     public function isExpire()

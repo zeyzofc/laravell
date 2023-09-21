@@ -92,7 +92,7 @@
                 }else{
 
 					if(response ['notFound'] == true) {
-						window.location.href = "{{ route('brands.index') }}";	
+						window.location.href = "{{ route('brands.index') }}";
 
 					}
 

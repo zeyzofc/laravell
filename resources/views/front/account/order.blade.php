@@ -30,7 +30,8 @@
                                     <tr>
                                         <th>Orders #</th>
                                         <th>Date Purchased</th>
-                                        <th>Status</th>
+                                        <th>Payment Status</th>
+                                        <th>Order Status</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
@@ -43,6 +44,13 @@
                                         </td>
                                         <td> {{ \Carbon\Carbon::parse($order->created_at)->format('d M, Y') }}</td>
                                         <td>
+                                            @if ($order->payment_status == '1')
+                                               <span class="badge bg-danger">Not Paid</span>
+                                            @else
+                                                <span class="badge bg-success">Paid</span>
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if ($order->status == 'pending')
                                             <span class="badge bg-danger">Pending</span> 
                                             @elseif ($order->status == 'shipped')
@@ -52,8 +60,6 @@
                                             @else
                                             <span class="badge bg-black">Cancelled</span>
                                             @endif
-                                            
-                                            
                                         </td>
                                         <td>Rp {{ number_format($order->grand_total,2) }} </td>
                                     </tr>

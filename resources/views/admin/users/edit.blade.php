@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
-@section('content')				
+@section('content')
 				<!-- Content Header (Page header) -->
-				<section class="content-header">					
+				<section class="content-header">
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
 							<div class="col-sm-6">
@@ -48,8 +48,8 @@
                                         <div class="col-md-6">
 											<div class="mb-3">
 												<label for="slug">Password</label>
-												<input type="text" name="password" id="password" class="form-control" placeholder="Password">
-												<span>To Change Password You Have to Enter a Value, Otherwise Leave Blank</span>
+												<input type="text" name="password" id="password" class="form-control" placeholder="To Change Password You Have to Enter a Value, Otherwise Leave Blank">
+
 												<p></p>
 											</div>
 										</div>

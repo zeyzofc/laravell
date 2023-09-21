@@ -166,7 +166,6 @@
                         {{-- <a href="" class="btn-dark btn btn-block w-100">Pay Now</a> --}}
                         <button type="submit" class="btn-dark btn btn-block w-100">Place Order Now</button>
                     </div>
-                        
                 <!-- CREDIT CARD FORM ENDS HERE -->
                 
             </div>

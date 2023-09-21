@@ -15,7 +15,6 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\TempImagesController;
 use App\Http\Controllers\admin\UserController;
-use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
@@ -78,7 +77,6 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/my-wishlist',[AuthController::class,'wishlist'])->name('account.wishlist');
         Route::post('/remove-product-from-wishlist',[AuthController::class,'removeProductFromWishList'])->name('account.removeProductFromWishList');
         Route::get('/order-detail/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
-        Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
         Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
 
     });

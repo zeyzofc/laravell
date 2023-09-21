@@ -226,12 +226,12 @@ class AuthController extends Controller
              $order->snap_token = $snapToken;
              $order->save();
          }
-
+         
         //dd($order, $snapToken);
         return view('front.account.order-detail', compact('data', 'snapToken'));
          
         // // Set your Merchant Server Key
-        // \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // \Midtrans\Config::$serverKey = 'SB-Mid-server-WRQZUH4nYcmYsxStz4MTbWSR';
         // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         // \Midtrans\Config::$isProduction = false;
         // // Set sanitization on (default)
