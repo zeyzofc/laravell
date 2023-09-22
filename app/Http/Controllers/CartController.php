@@ -19,51 +19,45 @@ use Illuminate\Support\Facades\Validator;
 class CartController extends Controller
 {
     public function addToCart(Request $request) {
-        $product = Product::with('product_images')->find($request->id);
+    $product = Product::with('product_images')->find($request->id);
 
-        if ($product == null) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Record Not Found'
-            ]);
-        }
-
-        if (Cart::count() >= 0) {
-             
-            $cartContent = Cart::content();
-            $productAlreadyExist = false;
-
-            foreach ($cartContent as $item) {
-                if ($item->id == $product->id) {
-                    $productAlreadyExist = true;
-                }
-            }
-
-            if ($productAlreadyExist == false) {
-                Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '' ]);
-                $status = true;
-                $message = '<strong>'.$product->title.'</strong> Added in Your Cart Successfully.';
-                session()->flash('success', $message);
-
-            } else {
-                $status = false;
-                $message = $product->title.' Already Added in Cart';
-            }
-
-
-        } else {
-            echo "Cart is Empty Now Adding a Product in Cart";
-            Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '' ]);
-            $status = true;
-            $message = '<strong>'.$product->title.'</strong> Added in Your Cart Successfully.';
-            session()->flash('success', $message);
-        }
-
+    if ($product == null) {
         return response()->json([
-                'status' => $status,
-                'message' => $message
-            ]);
+            'status' => false,
+            'message' => 'Record Not Found'
+        ]);
     }
+
+    $cartContent = Cart::content();
+    $productAlreadyExist = false;
+
+    foreach ($cartContent as $item) {
+        if ($item->id == $product->id) {
+            $productAlreadyExist = true;
+        }
+    }
+
+    if ($productAlreadyExist) {
+        // Product is already in the cart, display a SweetAlert
+        return response()->json([
+            'status' => false,
+            'message' => '<div class="alert alert-info"><strong>"' . $product->title . '"</strong> is already added in your cart</div>'
+           
+        ]);
+    }
+
+    Cart::add($product->id, $product->title, 1, $product->price, [
+        'productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '',
+    ]);
+
+    $message = '<div class="alert alert-success"><strong>"' . $product->title . '"</strong> Added in Your Cart Successfully.';
+    session()->flash('success', $message);
+
+    return response()->json([
+        'status' => true,
+        'message' => $message,
+    ]);
+}
 
     public function cart() {
         $cartContent = Cart::content();

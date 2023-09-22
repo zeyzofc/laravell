@@ -145,7 +145,7 @@
                                                     <i class="fa fa-shopping-cart"></i> Add To Cart
                                                 </a>
                                         @else
-                                        <a class="btn btn-dark" href="javascript:void(0);">
+                                        <a class="btn btn-dark" href="javascript:void(0);" onclick="showOutOfStockAlert();">
                                             Kehabisan Stock
                                         </a>
                                         @endif
@@ -260,4 +260,80 @@
             window.location.href = url;
         }
     </script>
+
+<script>
+    function showOutOfStockAlert() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Out of Stock',
+            text: 'Sorry, this product is currently out of stock.',
+            confirmButtonText: 'OK'
+        });
+    }
+
+    function addToCart(id) {
+    $.ajax({
+        url: '{{ route("front.addToCart") }}',
+        type: 'post',
+        data: { id: id },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            if (response.status == true) {
+                // Product added to the cart successfully, show a SweetAlert2 success popup
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Added to Cart ',
+                    html: response.message,
+                    showConfirmButton: false, // Remove the "OK" button
+                    timer: 1500 // Auto close after 1.5 seconds
+                });
+                // You can also redirect to the cart page if needed
+                // window.location.href = '{{ route("front.cart") }}';
+            } else {
+                // Product is already added to the cart, show a SweetAlert2 info popup
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Product Already in Cart',
+                    html: response.message,
+                    confirmButtonText: 'OK',
+                    footer: '<a href="{{ route('front.cart') }}">Go to Cart</a>'
+                });
+            }
+        }
+    });
+}
+
+function addToWishlist(id) {
+    $.ajax({
+        url: '{{ route("front.addToWishlist") }}',
+        type: 'post',
+        data: { id: id },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            if (response.status == true) {
+                // Product added to the wishlist successfully, show a SweetAlert2 success popup
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Added to Wishlist',
+                    html: response.message,
+                    showConfirmButton: false, // Remove the "OK" button
+                    timer: 1500 // Auto close after 1.5 seconds
+                });
+            } else {
+                // Product is already in the wishlist, show a SweetAlert2 info popup
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Product Already in Wishlist',
+                    html: response.message,
+                    confirmButtonText: 'OK',
+                    footer: '<a href="{{ route('account.wishlist') }}">Go to Wishlist</a>'
+                });
+            }
+        }
+    });
+}
+
+</script>
 @endsection

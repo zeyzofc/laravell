@@ -30,43 +30,47 @@ class FrontController extends Controller
 
     public function addToWishlist(Request $request) {
 
-        if (Auth::check() == false) {
+    if (Auth::check() == false) {
 
-            session(['url.intended' => url ()->previous()]);
-
-            return response()->json([
-                'status' => false
-            ]);
-        }
-
-        $product = Product::where('id',$request->id)->first();
-
-        if ($product == null) {
-            return response()->json([
-                'status' => true,
-                'message' => '<div class="alert alert-danger">Product Not Found</div>'
-            ]);
-        }
-
-        Wishlist::updateOrCreate(
-            [
-                'user_id' => Auth::user()->id,
-                'product_id' => $request->id,
-            ],
-            [
-                'user_id' => Auth::user()->id,
-                'product_id' => $request->id,
-            ]
-        );
-
-        // $wishlist = new Wishlist;
-        // $wishlist->user_id = Auth::user()->id;
-        // $wishlist->product_id = $request->id;
-        // $wishlist->save();
+        session(['url.intended' => url ()->previous()]);
 
         return response()->json([
-            'status' => true,
-            'message' => '<div class="alert alert-success"><strong>"'.$product->title.'"</strong> Added in Your Wishlist</div>'
+            'status' => false
         ]);
     }
+
+    $product = Product::where('id',$request->id)->first();
+
+    if ($product == null) {
+        return response()->json([
+            'status' => false, // Change to false because the product was not found
+            'message' => 'Product Not Found'
+        ]);
+    }
+
+    $wishlist = Wishlist::updateOrCreate(
+        [
+            'user_id' => Auth::user()->id,
+            'product_id' => $request->id,
+        ],
+        [
+            'user_id' => Auth::user()->id,
+            'product_id' => $request->id,
+        ]
+    );
+
+    if ($wishlist->wasRecentlyCreated) {
+        // Wishlist item was created, product added successfully
+        return response()->json([
+            'status' => true,
+            'message' => '<div class="alert alert-success"><strong>"'.$product->title.'"</strong> Added in Your Wishlist Successfully</div>'
+        ]);
+    } else {
+        // Wishlist item already exists, product is already in the wishlist
+        return response()->json([
+            'status' => false, // Change to false because the product is already in the wishlist
+            'message' => '<div class="alert alert-info"><strong>"'.$product->title.'"</strong> Already in Wishlist</div>'
+        ]);
+    }
+}
 }

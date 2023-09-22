@@ -78,20 +78,48 @@
 @section('customJs')
 <script>
     function removeProduct(id) {
-        $.ajax({
-                url: '{{ route("account.removeProductFromWishList") }}',
-                type: 'post',
-                data: {id:id},
-                dataType: 'json',
-                success: function(response){
-					console.log(response);
-                    if (response.status == true) {
-						window.location.href = '{{ route("account.wishlist") }}';
+        Swal.fire({
+            title: 'Remove from Wishlist',
+            text: 'Are you sure you want to remove this product from your wishlist?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, remove it',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User confirmed the removal, send an AJAX request
+                $.ajax({
+                    url: '{{ route("account.removeProductFromWishList") }}',
+                    type: 'post',
+                    data: { id: id },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == true) {
+                            // Product removed successfully, show a success SweetAlert2 popup
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Removed from Wishlist',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 1500, // Close after 1.5 seconds
+                                timerProgressBar: true
+                            }).then(() => {
+                                // Redirect to the wishlist page
+                                window.location.href = '{{ route("account.wishlist") }}';
+                            });
+                        } else {
+                            // Product removal failed, show an error SweetAlert2 popup
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to remove the product from your wishlist. Please try again.',
+                                confirmButtonText: 'OK'
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
+        });
     }
-
-
 </script>
 @endsection
