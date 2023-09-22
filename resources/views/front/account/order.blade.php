@@ -52,7 +52,7 @@
                                         </td>
                                         <td>
                                             @if ($order->status == 'pending')
-                                            <span class="badge bg-danger">Pending</span> 
+                                            <span class="badge bg-danger">Pending</span>
                                             @elseif ($order->status == 'shipped')
                                             <span class="badge bg-info">Shipped</span>
                                             @elseif ($order->status == 'delivered')
@@ -71,7 +71,7 @@
                                     @endif
                                 </tbody>
                             </table>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>

@@ -355,11 +355,13 @@ class CartController extends Controller
          }
     }
 
-    public function thankyou($id) {
+    public function thankyou($id, Order $order) {
 
-        return view('front.thanks',[
-            'id' => $id
-        ]);
+        $data = [];
+        $user = Auth::user();
+        $order = Order::where('user_id', $user->id)->where('id', $id)->first();
+        $data['order'] = $order;
+        return view('front.thanks', compact('data', 'id'));
     }
 
     public function getOrderSummary(Request $request){

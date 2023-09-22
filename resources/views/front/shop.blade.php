@@ -208,7 +208,7 @@
            to: {{ ($priceMax) }},
            skin : "round",
            max_postfix: "+",
-           prefix: "$",
+           prefix: "Rp ",
            onFinish: function(){
             apply_filters()
            }

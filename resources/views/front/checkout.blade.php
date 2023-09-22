@@ -188,10 +188,20 @@
                 $("#card-payment-form").removeClass('d-none');
             }
         });
-
+        
         $('#orderForm').submit(function(event) {
             event.preventDefault();
 
+            Swal.fire({
+                icon: 'question',
+                title: 'Confirm Order',
+                text: 'Are you sure you want to place this order?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+            // User confirmed, proceed with the order submission
             $('button[type="submit"]').prop('disabled',true);
 
             $.ajax({
@@ -311,13 +321,21 @@
                             .html('');
                         }
                     } else {
-                        window.location.href="{{ url('/thanks/') }}/"+response.orderId;
+                       Swal.fire({
+                        icon: 'success',
+                        title: 'Order Successfully!',
+                        text: 'Your order has been successfully placed. Please Complete Your Payment!',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                            // Redirect or perform any other actions you need
+                            window.location.href = "{{ url('/thanks/') }}/" + response.orderId;
+                    });
                     }
-
-                    
                 }
             });
-        });
+        }
+    });
+})
 
         $("#country").change(function(){
             $.ajax({
@@ -355,26 +373,35 @@
         });
 
        $('body').on('click', "#remove-discount", function () {
-            $.ajax({
-                url: '{{ route("front.removeCoupon") }}',
-                type: 'post',
-                data: {country_id: $("#country").val()},
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status == true) {
-                        $("#shippingAmount").html('Rp ' + response.shippingCharge);
-                        $("#grandTotal").html('Rp ' + response.grandTotal);
-                        $("#discount_value").html('Rp ' + response.discount);
-                        $("#discount-response-wrapper").html(''); // Remove the coupon code response
-                        $("#discount_code").val(''); // Clear the coupon code input field
+            Swal.fire({
+            icon: 'question',
+            title: 'Confirm Remove Discount',
+            text: 'Are you sure you want to remove the discount?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route("front.removeCoupon") }}',
+                    type: 'post',
+                    data: {country_id: $("#country").val()},
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == true) {
+                            $("#shippingAmount").html('Rp ' + response.shippingCharge);
+                            $("#grandTotal").html('Rp ' + response.grandTotal);
+                            $("#discount_value").html('Rp ' + response.discount);
+                            $("#discount-response-wrapper").html(''); // Remove the coupon code response
+                            $("#discount_code").val(''); // Clear the coupon code input field
+                        }
                     }
-                }
-            });
+                });
+            }
         });
-
+    });
 
         // $("#remove-discount").click(function(){
-           
         // });
 
     </script>

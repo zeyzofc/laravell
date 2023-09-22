@@ -171,18 +171,28 @@
             }
 
             function deleteItem(rowId) {
-                if (confirm("Are you sure you want to delete?")) {
+                Swal.fire({
+                icon: 'question',
+                title: 'Confirm Deletion',
+                text: 'Are you sure you want to delete this item?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
                     $.ajax({
-                    url: '{{ route("front.deleteItem.cart") }}',
-                    type: 'post',
-                    data: {rowId:rowId},
-                    dataType: 'json',
-                    success: function(response) {
-                        window.location.href = '{{ route("front.cart") }}'
-
-                    }
-                });
-            }
+                        url: '{{ route("front.deleteItem.cart") }}',
+                        type: 'post',
+                        data: { rowId: rowId },
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status == true) {
+                                window.location.href = '{{ route("front.cart") }}';
+                            }
+                        }
+                    });
+                }
+            });
         }
     </script>
 @endsection
