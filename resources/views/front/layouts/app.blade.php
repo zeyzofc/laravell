@@ -117,6 +117,7 @@
 			<div class="right-nav py-0">
 				<a href="{{ route("front.cart") }}" class="ml-3 d-flex pt-2">
 					<i class="fas fa-shopping-cart text-primary"></i>
+					<span id="cart-item-count" class="badge badge-danger">0</span>
 				</a>
 			</div>
       	</nav>
@@ -146,7 +147,7 @@
 					<h3>Important Links</h3>
 					<ul>
 						<li><a href="about-us.php" title="About">About</a></li>
-						<li><a href="contact-us.php" title="Contact Us">Contact Us</a></li>						
+						<li><a href="contact-us.php" title="Contact Us">Contact Us</a></li>
 						<li><a href="#" title="Privacy">Privacy</a></li>
 						<li><a href="#" title="Privacy">Terms & Conditions</a></li>
 						<li><a href="#" title="Privacy">Refund Policy</a></li>
@@ -160,7 +161,7 @@
 					<ul>
 						<li><a href="{{ route('admin.login') }}" title="Sell">Login</a></li>
 						<li><a href="#" title="Advertise">Register</a></li>
-						<li><a href="#" title="Contact Us">My Orders</a></li>						
+						<li><a href="#" title="Contact Us">My Orders</a></li>
 					</ul>
 				</div>
 			</div>
@@ -225,44 +226,64 @@ $.ajaxSetup({
 	}
 });
 
-function addToCart(id){
+	function addToCart(id){
+		$.ajax({
+			url: '{{ route("front.addToCart") }}',
+			type: 'post',
+			data: {id:id},
+			dataType: 'json',
+			success: function(response){
+				console.log(response);
+				if (response.status == true) {
+					// window.location.reload();
+					// window.location.href = '{{ route("front.cart") }}';
+					updateCartItemCount();
+				} else {
+					alert(response.message);
+				}
+			}
+		});
+	}
 
-            $.ajax({
-                url: '{{ route("front.addToCart") }}',
-                type: 'post',
-                data: {id:id},
-                dataType: 'json',
-                success: function(response){
+	function addToWishlist(id) {
+		$.ajax({
+				url: '{{ route("front.addToWishlist") }}',
+				type: 'post',
+				data: {id:id},
+				dataType: 'json',
+				success: function(response){
 					console.log(response);
-                    if (response.status == true) {
-                        window.location.href = '{{ route("front.cart") }}';
-                    } else {
-                        alert(response.message);
-                    }
-                }
-            });
-        }
-
-function addToWishlist(id) {
-	$.ajax({
-                url: '{{ route("front.addToWishlist") }}',
-                type: 'post',
-                data: {id:id},
-                dataType: 'json',
-                success: function(response){
-					console.log(response);
-                    if (response.status == true) {
-                       
+					if (response.status == true) {
+						
 						$("#wishlistModal .modal-body").html(response.message)
 						$("#wishlistModal").modal('show');
 
-                    } else {
+					} else {
 						window.location.href = '{{ route("account.login") }}';
-                        //alert(response.message);
-                    }
-                }
-            });
+						//alert(response.message);
+					}
+				}
+			});
+		}
+
+// Function to update the cart item count
+function updateCartItemCount() {
+    $.ajax({
+        url: '{{ route("front.getCartItemCount") }}',
+        type: 'get',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status == true) {
+                $('#cart-item-count').text(response.itemCount);
+            } else {
+                console.error('Failed to update cart item count');
+            }
+        }
+    });
 }
+
+// Call the function to update the cart item count initially
+updateCartItemCount();
 
 </script>
 

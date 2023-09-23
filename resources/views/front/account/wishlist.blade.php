@@ -101,7 +101,7 @@
                                 title: 'Removed from Wishlist',
                                 text: response.message,
                                 showConfirmButton: false,
-                                timer: 1500, // Close after 1.5 seconds
+                                timer: 1000, // Close after 1.5 seconds
                                 timerProgressBar: true
                             }).then(() => {
                                 // Redirect to the wishlist page

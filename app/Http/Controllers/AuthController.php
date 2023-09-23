@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
-use Midtrans\Snap;
 use App\Services\Midtrans\CreateSnapTokenService;
+// use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 class AuthController extends Controller
 {
     public function login() {
@@ -280,7 +281,33 @@ class AuthController extends Controller
             ]);
             
         }
+    }
 
+    public function generateInvoice($id)
+    {
+        // Retrieve order details and customer information
+        $data = [];
+        $user = Auth::user();
+        $userId = Auth::user()->id;
+        $order = Order::where('user_id', $user->id)->where('id', $id)->first();
+        $data['order'] = $order;
 
+        $orderItems = OrderItem::where('order_id', $id)->get();
+        $data['orderItems'] = $orderItems;
+
+        $user = User::where('id', $userId)->first();
+        $data['user'] = $user;
+
+        $address = CustomerAddress::where('user_id', $userId)->first();
+        $data['address'] = $address;
+        
+        // Generate the PDF
+        $pdf = PDF::loadView('front.account.invoice', compact('data'));
+
+        // Set options if needed (e.g., page size, orientation)
+        // $pdf->setPaper('A4', 'landscape');
+
+        // Download the PDF with a specific filename
+        return $pdf->stream('invoice.pdf');
     }
 }

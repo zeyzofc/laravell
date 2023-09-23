@@ -160,10 +160,16 @@
                                         Payment Method</button>
                                         
                                 @elseif ($data['order']->payment_status == '2')
-                                    <a href=""
+                                    <a href="{{ route('account.generateInvoice', ['orderId' => $data['order']->id]) }}"
                                         class="btn btn-success text-white btn-icon icon-left"><i
                                             class="fas fa-file-invoice"></i>
                                         Print Invoice</a>
+                                        
+                                @elseif ($data['order']->payment_status == '3')
+                                    <a href=""
+                                        class="btn btn-danger text-white btn-icon icon-left"><i
+                                            class="fas fa-file-times"></i>
+                                        Payment Expired</a>
                                 @endif
                             </div>
                         </div>

@@ -168,7 +168,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        
+        Barryvdh\DomPDF\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class
     ])->toArray(),
 
@@ -187,7 +188,8 @@ return [
         // 'Example' => App\Facades\Example::class,
         // Perbaikan Dikit
 
-        'Image' => Intervention\Image\Facades::class
+        'Image' => Intervention\Image\Facades::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ])->toArray(),
 

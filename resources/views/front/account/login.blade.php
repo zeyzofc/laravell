@@ -25,7 +25,7 @@
                     {{ Session::get('error') }}
                 </div>
             @endif
-            <div class="login-form">    
+            <div class="login-form">
                 <form action="{{ route ('account.authenticate') }}" method="post">
                     @csrf
                     <h4 class="modal-title">Login to Your Account</h4>
@@ -43,9 +43,9 @@
                     </div>
                     <div class="form-group small">
                         <a href="#" class="forgot-link">Forgot Password?</a>
-                    </div> 
-                    <input type="submit" class="btn btn-dark btn-block btn-lg" value="Login">              
-                </form>			
+                    </div>
+                    <input type="submit" class="btn btn-dark btn-block btn-lg" value="Login">
+                </form>
                 <div class="text-center small">Don't have an account? <a href="{{ route('account.register') }}">Sign up</a></div>
             </div>
         </div>

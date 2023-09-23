@@ -50,12 +50,16 @@ class CartController extends Controller
         'productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '',
     ]);
 
-    $message = '<div class="alert alert-success"><strong>"' . $product->title . '"</strong> Added in Your Cart Successfully.';
+    $message = '<strong>"'. $product->title .'"</strong> Added in Your Cart Successfully.';
     session()->flash('success', $message);
+
+    // $pesan = '<strong>"'. $product->title .'"</strong> Added in Your Cart Successfully.';
+    // session()->flash('berhasil', $pesan);
 
     return response()->json([
         'status' => true,
-        'message' => $message,
+        'message' => $message
+        // 'pesan' => $pesan,
     ]);
 }
 
@@ -518,5 +522,16 @@ class CartController extends Controller
     public function removeCoupon(Request $request){
         session()->forget('code');
         return $this->getOrderSummary($request);
+    }
+
+    public function getCartItemCount(Request $request)
+    {
+        // Get the cart item count using the Shoppingcart package
+        $cartItemCount = Cart::count();
+
+        return response()->json([
+            'status' => true,
+            'itemCount' => $cartItemCount,
+        ]);
     }
 }
