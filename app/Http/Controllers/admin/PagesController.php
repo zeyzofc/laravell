@@ -59,7 +59,78 @@ class PagesController extends Controller
 
     }
 
-    public function edit() {
+    public function edit(Request $request, $id) {
 
+        $page = Page::find($id);
+
+        if ($page == null) {
+            session()->flash('error','Halaman Tidak Ditemukan');
+            return redirect()->route('pages.index');
+        }
+
+        return view('admin.pages.edit',[
+            'page' => $page
+        ]);
+    }
+
+    public function update (Request $request, $id) {
+
+        $page = Page::find($id);
+
+        if ($page == null) {
+            session()->flash('error','Halaman Tidak Ditemukan');
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        $validator = Validator::make($request->all(),[
+            'name'=>'required',
+            'slug'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>false,
+                'errors' =>$validator->errors()
+            ]);
+        }
+
+        
+        $page->name = $request->name;
+        $page->slug = $request->slug;
+        $page->content = $request->content;
+        $page->save();
+
+        $message = 'Page updated successfuly';
+
+        session()->flash('success',$message);
+
+        return response()->json([
+            'status'=>true,
+            'message' => $message
+        ]);
+    }
+
+    public function destroy($id) {
+        $page = Page::find($id);
+
+        if ($page == null) {
+            session()->flash('error','Halaman Tidak Ditemukan');
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        $page->delete();
+        
+        $message = 'Page deleted successfuly';
+
+        session()->flash('success',$message);
+
+        return response()->json([
+            'status'=>true,
+            'message' => $message
+        ]);
     }
 }
