@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Midtrans\CreateSnapTokenService;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 // use Barryvdh\DomPDF\Facade as PDF;
 use PDF;
 class AuthController extends Controller
@@ -305,8 +306,8 @@ class AuthController extends Controller
         $pdf = PDF::loadView('front.account.invoice', compact('data'));
 
         // Set options if needed (e.g., page size, orientation)
-        // $pdf->setPaper('A4', 'landscape');
-
+        $pdf->setPaper('A4', 'potrait');
+        
         // Download the PDF with a specific filename
         return $pdf->stream('invoice.pdf');
     }
