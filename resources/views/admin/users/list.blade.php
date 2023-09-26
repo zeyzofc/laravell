@@ -50,6 +50,7 @@
 												<th>Name</th>
 												<th>Email</th>
                                                 <th>Phone</th>
+												<th>Role</th>
 												<th width="100">Status</th>
 												<th width="100">Action</th>
 											</tr>
@@ -62,6 +63,15 @@
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>
                                                     <td>{{ $user->phone }}</td>
+													<td>
+														@if ($user->role == 1)
+														<span class="badge bg-info">User</span>
+														@elseif ($user->role == 2)
+														<span class="badge bg-success">Admin</span>
+														@else 
+														<span class="badge bg-danger">Not Found</span>
+														@endif
+													</td>
                                                     <td>
                                                         @if ($user->status == 1)
                                                         <svg class="text-success-500 h-6 w-6 text-success" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">

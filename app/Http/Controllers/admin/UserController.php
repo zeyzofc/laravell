@@ -15,7 +15,9 @@ class UserController extends Controller
 
         if(!empty($request->get('keyword'))) {
             $users = $users->where('name','like','%'.$request->get('keyword').'%');
-            $users = $users->orWhere('email','like','%'.$request->get('keyword').'%');
+            $users = $users->Where('email','like','%'.$request->get('keyword').'%');
+            $users = $users->orWhere('role','like','%'.$request->get('keyword').'%');
+
 
         }
 

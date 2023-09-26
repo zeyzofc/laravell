@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Wishlist;
+use App\Models\Page;
 use Illuminate\Support\Facades\Auth;
 class FrontController extends Controller
 {
@@ -72,4 +73,17 @@ class FrontController extends Controller
         ]);
     }
 }
+
+    public function page($slug) {
+        $page = Page::where('slug',$slug)->first();
+        if($page == null) {
+            abort(404);
+        }
+        return view('front.page',[
+            'page'=>$page
+        ]);
+        //dd($page);
+
+    }
+
 }
