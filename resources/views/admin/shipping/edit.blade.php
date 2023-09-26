@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('content')				
+@section('content')
 				<!-- Content Header (Page header) -->
 				<section class="content-header">					
 					<div class="container-fluid my-2">
@@ -9,7 +9,7 @@
 								<h1>Shipping Management</h1>
 							</div>
 							<div class="col-sm-6 text-right">
-								<a href="{{ route('categories.index') }}" class="btn btn-primary">Back</a>
+								<a href="{{ route('shipping.create') }}" class="btn btn-primary">Back</a>
 							</div>
 						</div>
 					</div>

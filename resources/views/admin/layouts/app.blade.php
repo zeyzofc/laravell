@@ -21,6 +21,9 @@
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/datetimepicker.css') }}">
 
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/custom.css') }}">
+		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 	</head>
 	<body class="hold-transition sidebar-mini">
@@ -100,6 +103,8 @@
 		<script src="{{ asset('admin-assets/plugins/select2/js/select2.min.js') }}"></script>
 
 		<script src="{{ asset('admin-assets/js/datetimepicker.js') }}"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		<!-- AdminLTE for demo purposes -->
 		<script src="{{ asset('admin-assets/js/demo.js') }}"></script>

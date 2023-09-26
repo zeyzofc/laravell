@@ -105,30 +105,51 @@
 
 @section('customJs')
 <script>
-	function deleteCategory(id){
-		var url = '{{route("categories.delete","ID") }}';
-		var newUrl = url.replace("ID",id)
+    function deleteCategory(id) {
+        var url = '{{ route("categories.delete", "ID") }}';
+        var newUrl = url.replace("ID", id);
 
-		if(confirm('Are you sure you want to delete')){
-		$.ajax({
-            url: newUrl,
-            type: 'delete',
-            data:{},
-            dataType: 'json',
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-            success: function(response){
-                if(response["status"] == true){
-					window.location.href="{{ route('categories.index') }}";
-				} else {
-					 
-
-				}
-			}
-		});
-	}
-	}
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: newUrl,
+                    type: 'delete',
+                    data: {},
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        if (response.status === true) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Category has been deleted.',
+                                'success'
+                            ).then(() => {
+                                window.location.href = "{{ route('categories.index') }}";
+                            });
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred while deleting the category.',
+                                'error'
+                            );
+                        }
+                    }
+                });
+            }
+        });
+    }
 </script>
+
+
 
 @endsection

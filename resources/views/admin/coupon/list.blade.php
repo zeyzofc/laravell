@@ -117,30 +117,49 @@
 
 @section('customJs')
 <script>
-	function deleteCoupon(id){
-		var url = '{{route("coupons.delete","ID") }}';
-		var newUrl = url.replace("ID",id)
+	function deleteCoupon(id) {
+        var url = '{{ route("coupons.delete", "ID") }}';
+        var newUrl = url.replace("ID", id);
 
-		if(confirm('Are you sure you want to delete')){
-		$.ajax({
-            url: newUrl,
-            type: 'delete',
-            data:{},
-            dataType: 'json',
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-            success: function(response){
-                if(response["status"] == true){
-					window.location.href="{{ route('coupons.index') }}";
-				} else {
-					 
-
-				}
-			}
-		});
-	}
-	}
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: newUrl,
+                    type: 'delete',
+                    data: {},
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        if (response.status === true) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Discount coupon has been deleted.',
+                                'success'
+                            ).then(() => {
+                                window.location.href = "{{ route('coupons.index') }}";
+                            });
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred while deleting the discount coupon.',
+                                'error'
+                            );
+                        }
+                    }
+                });
+            }
+        });
+    }
 </script>
 
 @endsection
