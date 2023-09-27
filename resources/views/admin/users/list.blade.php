@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Content Header (Page header) -->
-					<section class="content-header">					
+					<section class="content-header">
 						<div class="container-fluid my-2">
 							<div class="row mb-2">
 								<div class="col-sm-6">
@@ -117,30 +117,49 @@
 
 @section('customJs')
 <script>
-	function deleteUser(id){
-		var url = '{{route("users.delete","ID") }}';
-		var newUrl = url.replace("ID",id)
+    function deleteUser(id) {
+        var url = '{{ route("users.delete", "ID") }}';
+        var newUrl = url.replace("ID", id);
 
-		if(confirm('Are you sure you want to delete?')){
-		$.ajax({
-            url: newUrl,
-            type: 'delete',
-            data:{},
-            dataType: 'json',
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-            success: function(response){
-                if(response["status"] == true){
-					window.location.href="{{ route('users.index') }}";
-				} else {
-					 
-
-				}
-			}
-		});
-	}
-	}
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: newUrl,
+                    type: 'delete',
+                    data: {},
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        if (response.status === true) {
+                            Swal.fire(
+                                'Deleted!',
+                                'User has been deleted.',
+                                'success'
+                            ).then(() => {
+                                window.location.href = "{{ route('users.index') }}";
+                            });
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred while deleting the user.',
+                                'error'
+                            );
+                        }
+                    }
+                });
+            }
+        });
+    }
 </script>
 
 @endsection

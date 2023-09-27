@@ -77,6 +77,8 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/profile',[AuthController::class,'profile'])->name('account.profile');
         Route::post('/update-profile',[AuthController::class,'updateProfile'])->name('account.updateProfile');
         Route::post('/update-address',[AuthController::class,'updateAddress'])->name('account.updateAddress');
+        Route::get('/change-password',[AuthController::class,'changePassword'])->name('account.changePassword');
+        Route::post('/update-password',[AuthController::class,'updatePassword'])->name('account.updatePassword');
         Route::get('/my-orders',[AuthController::class,'orders'])->name('account.orders');
         Route::get('/my-wishlist',[AuthController::class,'wishlist'])->name('account.wishlist');
         Route::post('/remove-product-from-wishlist',[AuthController::class,'removeProductFromWishList'])->name('account.removeProductFromWishList');

@@ -311,4 +311,53 @@ class AuthController extends Controller
         // Download the PDF with a specific filename
         return $pdf->stream('invoice.pdf');
     }
+
+    public function changePassword() {
+
+        $userId = Auth::user()->id;
+
+        $user = User::where('id', $userId)->first();
+
+        return view('front.account.password',[
+            'user' => $user
+        ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+
+        // Check if the current password matches the user's password
+        if (!Hash::check($request->currentPassword, $user->password)) {
+            return response()->json([
+                'status' => false,
+                'errors' => ['currentPassword' => 'Current password is incorrect']
+            ]);
+        }
+
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'currentPassword' => 'required',
+            'newPassword' => 'required|min:8|confirmed',
+        ]);
+
+        if ($validator->passes()) {
+            // Update the user's password
+            $user->password = Hash::make($request->newPassword);
+            $user->save();
+
+            session()->flash('success', 'Password Updated Successfully');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Password Updated Successfully'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+    }
 }

@@ -14,7 +14,7 @@
 
     <section class=" section-10">
         <div class="container">
-            <div class="login-form">    
+            <div class="login-form">
                 <form action="" method="post" name="registrationForm" id="registrationForm">
                     <h4 class="modal-title">Register Now</h4>
                     <div class="form-group">
@@ -39,9 +39,9 @@
                     </div>
                     <div class="form-group small">
                         <a href="#" class="forgot-link">Forgot Password?</a>
-                    </div> 
+                    </div>
                     <button type="submit" class="btn btn-dark btn-block btn-lg" value="Register">Register</button>
-                </form>			
+                </form>
                 <div class="text-center small">Already have an account? <a href="{{ route('account.login') }}">Login Now</a></div>
             </div>
         </div>

@@ -391,25 +391,51 @@
         }
 	});
 
-    function deleteImage(id) {
-    $("#image-row-"+id).remove();
-    if (confirm("Are you sure you want to delete the image?")) {
-        $.ajax({
-            url: '{{ route("product-images.destroy") }}', // This should work if the route name is correct
-            type: 'delete', // Use DELETE method
-            data: { id: id },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+function deleteImage(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '{{ route("product-images.destroy") }}',
+                type: 'DELETE',
+                data: { id: id },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-            success: function(response) {
-                if (response.status == true) {
-                    alert(response.message);
-                } else {
-                    alert(response.message);
+                success: function (response) {
+                    if (response.status == true) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Image has been deleted.',
+                            'success'
+                        ).then(() => {
+                            $("#image-row-" + id).remove();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while deleting the image.',
+                            'error'
+                        );
+                    }
+                },
+                error: function () {
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred while deleting the image.',
+                        'error'
+                    );
                 }
-            }
-        });
-    }
+            });
+        }
+    });
 }
 
 </script>

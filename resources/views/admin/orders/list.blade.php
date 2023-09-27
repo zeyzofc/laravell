@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Content Header (Page header) -->
-			<section class="content-header">					
+			<section class="content-header">
 				<div class="container-fluid my-2">
 					<div class="row mb-2">
 						<div class="col-sm-6">
@@ -49,7 +49,8 @@
 										<th>Customer</th>
 										<th>Email</th>
 										<th>Phone</th>
-										<th>Status</th>
+										<th>Payment Status</th>
+										<th>Order Status</th>
 										<th>Amount</th>
 										<th>Date Purcahsed</th>
 									</tr>
@@ -62,6 +63,17 @@
 											<td>{{ $order->name }}</td>
 											<td>{{ $order->email }}</td>
 											<td>{{ $order->mobile }}</td>
+											<td>
+												@if ($order->payment_status == '1')
+												<span class="badge bg-danger">Unpaid</span>
+												@elseif ($order->payment_status == '2')
+												<span class="badge bg-success">Paid</span> 
+												@elseif ($order->payment_status == '3')
+												<span class="badge bg-warning">Expired</span>
+												@else
+												<span class="badge bg-black">Cancelled</span>
+												@endif
+											</td>
 											<td>
 												@if ($order->status == 'pending')
 												<span class="badge bg-danger">pending</span>
