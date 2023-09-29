@@ -40,11 +40,11 @@
                             </div>
                             <div class="mb-3">               
                                 <label for="name">Confirm Password</label>
-                                <input type="password" name="confirm_password" id="confirm_password" placeholder="Old Password" class="form-control">
+                                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm New Password" class="form-control">
                                 <p></p>
                             </div>
                             <div class="d-flex">
-                                <button class="btn btn-dark">Save</button>
+                                <button id="submit" name="submit" type="submit" class="btn btn-dark">Save</button>
                             </div>
                         </div>
                     </div>
@@ -60,6 +60,7 @@
 <script type="text/javascript">
 $("#changePasswordForm").submit(function(e){
     e.preventDefault();
+    $("#submit").prop('disable',true);
 
     $.ajax({
         url: '{{ route("account.processChangePassword") }}',
@@ -67,7 +68,9 @@ $("#changePasswordForm").submit(function(e){
         data: $(this).serializeArray(),
         dataType: 'json',
         success: function(response){
+            $("#submit").prop('disable',false);
             if (response.status == true) {
+                window.location.href="{{ route('account.changePassword') }}"
 
             } else {
                 var errors = response.errors;
