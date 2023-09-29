@@ -156,6 +156,7 @@
                                         @endif
                                     </div>
                                 </div>
+                                
                                 <div class="card-body text-center mt-3">
                                     <a class="h6 link" href="{{ route("front.product",$product->slug) }}">{{ $product->title }}</a>
                                     <div class="price mt-2">

@@ -106,6 +106,8 @@
 
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
 		<!-- AdminLTE for demo purposes -->
 		<script src="{{ asset('admin-assets/js/demo.js') }}"></script>
 
