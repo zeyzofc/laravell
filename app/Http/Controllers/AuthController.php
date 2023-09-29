@@ -312,47 +312,19 @@ class AuthController extends Controller
         return $pdf->stream('invoice.pdf');
     }
 
-    public function changePassword() {
-
-        $userId = Auth::user()->id;
-
-        $user = User::where('id', $userId)->first();
-
-        return view('front.account.password',[
-            'user' => $user
-        ]);
+    public function showChangePasswordForm() {
+        return view('front.account.change-password');
     }
 
-    public function updatePassword(Request $request)
-    {
-        $userId = Auth::user()->id;
-        $user = User::find($userId);
-
-        // Check if the current password matches the user's password
-        if (!Hash::check($request->currentPassword, $user->password)) {
-            return response()->json([
-                'status' => false,
-                'errors' => ['currentPassword' => 'Current password is incorrect']
-            ]);
-        }
-
-        // Validate the request data
-        $validator = Validator::make($request->all(), [
-            'currentPassword' => 'required',
-            'newPassword' => 'required|min:8|confirmed',
+    public function changePassword(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'old_password' => 'required',
+            'new_password' => 'required|min:5|same:confirm_password',
+            'confirm_password' => 'required',
         ]);
 
         if ($validator->passes()) {
-            // Update the user's password
-            $user->password = Hash::make($request->newPassword);
-            $user->save();
 
-            session()->flash('success', 'Password Updated Successfully');
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Password Updated Successfully'
-            ]);
         } else {
             return response()->json([
                 'status' => false,
