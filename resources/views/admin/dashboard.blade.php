@@ -99,44 +99,226 @@
             </div>
         </div>
     </div>
-    <!-- /.card -->
-        <div class="container">
-            <canvas id="myChart"></canvas>
+
+    <!-- Sales Recap Report -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- Sales Recap Report Card -->
+                <div class="card-header">
+                    <h5 class="card-title">Sales Recap Report</h5>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                                <i class="fas fa-wrench"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <a href="#" class="dropdown-item">Action</a>
+                                <a href="#" class="dropdown-item">Another action</a>
+                                <a href="#" class="dropdown-item">Something else here</a>
+                                <a class="dropdown-divider"></a>
+                                <a href="#" class="dropdown-item">Separated link</a>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {!! $data['chart']->container() !!}
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="description-block border-right">
+                                <h5 class="description-header">Rp {{ number_format($data['currentMonthEarnings'], 2) }}</h5>
+                                <span class="description-text">TOTAL EARNING FOR THIS MONTH</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="description-block">
+                                <h5 class="description-header">Rp {{ number_format($data['totalEarnings'], 2) }}</h5>
+                                <span class="description-text">TOTAL EARNING</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- Latest Order -->
+        <div class="card">
+        <div class="card-header border-transparent">
+            <h3 class="card-title">Latest Orders</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Payment Status</th>
+                            <th>Order Status</th>
+                            <th>Amount</th>
+                            <th>Date Purchased</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($data['orders']->isNotEmpty())
+                            @foreach ($data['orders'] as $order)
+                                <tr>
+                                    <td><a href="{{ route('orders.detail',[$order->id]) }}">{{ $order->id }}</a></td>
+                                    <td>{{ $order->name }}</td>
+                                    <td>{{ $order->email }}</td>
+                                    <td>
+                                        @if ($order->payment_status == '1')
+                                            <span class="badge bg-danger">Unpaid</span>
+                                        @elseif ($order->payment_status == '2')
+                                            <span class="badge bg-success">Paid</span> 
+                                        @elseif ($order->payment_status == '3')
+                                            <span class="badge bg-warning">Expired</span>
+                                        @else
+                                            <span class="badge bg-black">Cancelled</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($order->status == 'pending')
+                                            <span class="badge bg-danger">Pending</span>
+                                        @elseif ($order->status == 'shipped')
+                                            <span class="badge bg-info">Shipped</span>
+                                        @elseif ($order->status == 'delivered')
+                                            <span class="badge bg-success">Delivered</span>
+                                        @else
+                                            <span class="badge bg-black">Cancelled</span>
+                                        @endif
+                                    </td>
+                                    <td>Rp {{ number_format($order->grand_total,2) }}</td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($order->created_at)->format('d M, Y') }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <a href="{{ route('orders.index') }}" class="btn btn-sm btn-info float-right">View All Orders</a>
+        </div>
+        <!-- /.card-footer -->
+    </div>
+    <!-- /.card -->
+
+
+    <!-- Latest User & Product -->
+    <div class="row">
+        <div class="col-md-5">
+            <!-- Latest User -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Latest User</h3>
+                    <div class="card-tools">
+                        <span class="badge badge-danger">{{ count($data['latestUser']) }} New User</span>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-10">
+                    <ul class="users-list clearfix">
+                        @if ($data['latestUser']->isNotEmpty())
+                            @foreach ($data['latestUser'] as $user)
+                                <li>
+                                    <img src="{{ asset('front-assets/images/user.jpg') }}" alt="User Image" class="img-size-50">
+                                    <a class="users-list-name" href="#">{{ $user->name }}</a>
+                                    <span class="users-list-date">{{ $user->created_at->diffForHumans() }}</span>
+                                </li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ route('users.index') }}">View All Users</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recently Added Products -->
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Recently Added Products</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="products-list product-list-in-card pl-2 pr-2">
+                        @if ($data['latestProducts']->isNotEmpty())
+                            @foreach ($data['latestProducts'] as $product)
+                            @php
+                                $productImage = $product->product_images->first();
+                            @endphp
+                        <li class="item">
+                            <div class="product-img">
+                                @if (!empty($productImage->image))
+                                <img class="card-img-top"  src="{{ asset('uploads/product/small/'.$productImage->image) }}" alt="Product Image" class="img-size-50"/>
+                                @else
+                                <img src="{{ asset('admin-assets/img/default-150x150.png') }}" alt="Product Image" class="img-size-50"/>
+                                @endif
+                            </div>
+                            <div class="product-info">
+                                <a href="{{ route("front.product",$product->slug) }}" class="product-title">{{ $product->title }}
+                                </a>
+                                <span class="badge badge-warning float-right">Rp {{ number_format($product->price,2) }}</span>
+                                <span class="product-description">
+                                    {{ $product->qty }} Left in Stock
+                                </span>
+                            </div>
+                        </li>
+                        @endforeach
+                    @endif
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ route('products.index') }}" class="uppercase">View All Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-<!-- /.content -->
+
 @endsection
 
 
 @section('customJs')
-<script>
-    // Sample data (replace with your data)
-    const data = {
-        labels: ['January', 'February', 'March', 'April', 'May'],
-        datasets: [{
-            label: 'Monthly Sales',
-            data: [1000, 1200, 900, 1500, 2000],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-        }]
-    };
-
-    // Configuration options for the chart
-    const options = {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    };
-
-    // Get the canvas element and render the chart
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: options
-    });
-</script>
+<script src="{{ $data['chart']->cdn() }}"></script>
+{{ $data['chart']->script() }}
 @endsection
