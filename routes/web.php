@@ -16,6 +16,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\TempImagesController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
@@ -184,6 +185,11 @@ Route::group(['prefix' => 'admin'],function(){
 
         //temp-images.create
         Route::post('/upload-temp-image', [TempImagesController::class,'create'])->name('temp-images.create');
+
+        //Setting route
+        Route::get('/change-password',[SettingController::class,'ShowChangePasswordForm'])->name('admin.ShowChangePasswordForm');
+        Route::post('/process-change-password',[SettingController::class,'processChangePassword'])->name('admin.ProcessChangePassword');
+
 
         Route::get('/getSlug',function(Request $request){
             $slug = '';
