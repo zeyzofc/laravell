@@ -51,4 +51,9 @@ function orderEmail($orderId, $userType="customer") {
         $pages = Page::orderBy('name','ASC')->get();
         return $pages;
     }
+
+    function formatRupiah($nominal, $prefix = null){
+        $prefix = $prefix ? $prefix : 'Rp. ';
+        return "Rp" . number_format($nominal, 2, ',', '.');
+    }
 ?>

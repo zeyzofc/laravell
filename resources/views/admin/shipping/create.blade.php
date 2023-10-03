@@ -8,7 +8,17 @@
 							<div class="col-sm-6">
 								<h1>Shipping Management</h1>
 							</div>
-							
+							<div class="col-sm-6 text-right">
+								<!-- PDF Button -->
+								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-pdf mr-1"></i>PDF</button>
+								<!-- CSV Button -->
+								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-csv mr-1"></i>CSV</button>
+								<!-- Excel Button -->
+								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-excel mr-1"></i>Excel</button>
+								<!-- Refresh Button -->
+								<button type="button" onclick="window.location.href='{{ route('shipping.create') }}'"
+										class="btn btn-info btn-sm"><i class="fas fa-sync-alt mr-1"></i>Refresh</button>
+							</div>
 						</div>
 					</div>
 					<!-- /.container-fluid -->
@@ -46,7 +56,7 @@
 								</div>
 									<div class="col-md-4">
 										<div class="mb-3">
-										<button type="submit" class="btn btn-primary">Create</button>
+										<button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle mr-1"></i>Create</button>
 									</div>
 								</div>
 								</div>

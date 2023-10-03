@@ -9,7 +9,7 @@
 						<h1>Sub Categories</h1>
 					</div>
 					<div class="col-sm-6 text-right">
-						<a href="{{ route('sub-categories.create') }}" class="btn btn-primary">New Sub Category</a>
+						<a href="{{ route('sub-categories.create') }}" class="btn btn-primary"><i class="fas fa-plus-circle mr-1"></i>New Sub Category</a>
 					</div>
 				</div>
 			</div>
@@ -24,8 +24,11 @@
 				<form action="" method="get">
 					<div class="card-header">
 						<div class="card-title">
+							<button class="btn btn-secondary btn-sm"><i class="fas fa-file-pdf mr-1"></i>PDF</button>
+							<button class="btn btn-secondary btn-sm"><i class="fas fa-file-csv mr-1"></i>CSV</button>
+							<button class="btn btn-secondary btn-sm"><i class="fas fa-file-excel mr-1"></i>Excel</button>
 							<button type="button" onclick="window.location.href='{{ route('sub-categories.index') }}'" 
-							class="btn btn-success btn-sm">Refresh</button>
+							class="btn btn-info btn-sm"><i class="fas fa-sync-alt mr-1"></i>Refresh</button>
 						</div>
 
 						<div class="card-tools">

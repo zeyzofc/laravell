@@ -3,22 +3,22 @@
 namespace App\Charts;
 
 use App\Models\Order;
-use ArielMejiaDev\LarapexCharts\LarapexChart;
-use Carbon\Carbon;
+use ArielMejiaDev\LarapexCharts\LineChart;
 
 class PendapatanBulanan
 {
     protected $chart;
 
-    public function __construct(LarapexChart $chart)
+    public function __construct(LineChart $chart)
     {
         $this->chart = $chart;
     }
 
-    public function build(): \ArielMejiaDev\LarapexCharts\LineChart
+    public function build()
     {
         $tahun = date('Y');
         $bulan = date('m');
+        $chartType = request()->get('chartType', 'area'); // Get the selected chart type from the request
 
         // Initialize the array with default values for all 12 months
         $dataTotalPendapatan = array_fill(0, 12, 0);
@@ -32,10 +32,25 @@ class PendapatanBulanan
             $dataTotalPendapatan[$i - 1] = $totalPendapatan;
         }
 
-        return $this->chart->lineChart()
-            ->setTitle('Revenue Data')
+        // Create the chart based on the selected chart type
+        switch ($chartType) {
+            case 'bar':
+                $chart = $this->chart->barChart();
+                break;
+            case 'line':
+                $chart = $this->chart->lineChart();
+                break;
+            case 'area':
+            default:
+                $chart = $this->chart->areaChart();
+                break;
+        }
+
+        $chart->setTitle('Revenue Data')
             ->setSubtitle('Revenue Data Per Month.')
             ->addData('Total Income', $dataTotalPendapatan)
             ->setXAxis(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
+
+        return $chart;
     }
 }

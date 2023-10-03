@@ -116,12 +116,11 @@
                                 <i class="fas fa-wrench"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <a href="#" class="dropdown-item">Action</a>
-                                <a href="#" class="dropdown-item">Another action</a>
-                                <a href="#" class="dropdown-item">Something else here</a>
-                                <a class="dropdown-divider"></a>
-                                <a href="#" class="dropdown-item">Separated link</a>
+                                <a href="#" class="dropdown-item" onclick="changeChartType('area')">Area Chart</a>
+                                <a href="#" class="dropdown-item" onclick="changeChartType('bar')">Bar Chart</a>
+                                <a href="#" class="dropdown-item" onclick="changeChartType('line')">Line Chart</a>
                             </div>
+
                         </div>
                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                             <i class="fas fa-times"></i>
@@ -129,7 +128,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    {!! $data['chart']->container() !!}
+                    <div id="chartContainer" data-chart-type="area">
+                        {!! $data['chart']->container() !!}
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="row">
@@ -320,5 +321,39 @@
 
 @section('customJs')
 <script src="{{ $data['chart']->cdn() }}"></script>
+<script>
+    // Function to change the chart type
+    function changeChartType(chartType) {
+        var chartContainer = document.getElementById('chartContainer');
+        chartContainer.setAttribute('data-chart-type', chartType);
+
+        // Save the current scroll position in localStorage
+        localStorage.setItem('scrollPosition', window.scrollY);
+
+        // Reload the page with the selected chart type
+        window.location.href = window.location.pathname + '?chartType=' + chartType;
+    }
+
+    // Restore the scroll position after the page reloads
+    window.onload = function () {
+        var savedScrollPosition = localStorage.getItem('scrollPosition');
+        if (savedScrollPosition) {
+            window.scrollTo(0, savedScrollPosition);
+            localStorage.removeItem('scrollPosition'); // Remove the saved position
+        }
+    }
+</script>
+
+{{-- Fast Loading  --}}
+{{-- <script>
+    function changeChartType(chartType) {
+        var chartContainer = document.getElementById('chartContainer');
+        chartContainer.setAttribute('data-chart-type', chartType);
+
+        // Reload the page with the selected chart type
+        window.location.href = window.location.pathname + '?chartType=' + chartType;
+    }
+</script> --}}
+
 {{ $data['chart']->script() }}
 @endsection

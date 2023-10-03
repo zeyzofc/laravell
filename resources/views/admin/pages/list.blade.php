@@ -9,7 +9,7 @@
 						<h1>Pages</h1>
 					</div>
 					<div class="col-sm-6 text-right">
-						<a href="{{ route('pages.create') }}" class="btn btn-primary">New Page</a>
+						<a href="{{ route('pages.create') }}" class="btn btn-primary"><i class="fas fa-plus-circle mr-1"></i>New Page</a>
 					</div>
 				</div>
 			</div>
@@ -24,8 +24,8 @@
 				<form action="" method="get">
 					<div class="card-header">
 						<div class="card-title">
-							<button type="button" onclick="window.location.href='{{ route('pages.index') }}'" 
-							class="btn btn-success btn-sm">Refresh</button>
+							<button type="button" onclick="window.location.href='{{ route('pages.index') }}'"
+							class="btn btn-info btn-sm"><i class="fas fa-sync-alt mr-1"></i>Refresh</button>
 						</div>
 
 						<div class="card-tools">

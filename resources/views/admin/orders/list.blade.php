@@ -23,8 +23,11 @@
 					<form action="" method="get">
 						<div class="card-header">
 							<div class="card-title">
+								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-pdf mr-1"></i>PDF</button>
+								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-csv mr-1"></i>CSV</button>
+								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-excel mr-1"></i>Excel</button>
 								<button type="button" onclick="window.location.href='{{ route('orders.index') }}'" 
-								class="btn btn-success btn-sm">Refresh</button>
+								class="btn btn-info btn-sm"><i class="fas fa-sync-alt mr-1"></i>Refresh</button>
 							</div>
 
 							<div class="card-tools">
