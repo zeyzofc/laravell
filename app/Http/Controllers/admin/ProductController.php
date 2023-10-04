@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ExportProduct;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -276,5 +278,9 @@ class ProductController extends Controller
             'tags' => $tempProduct,
             'status' => true
         ]);
+    }
+
+    public function export_excel(){
+       return Excel::download(new ExportProduct, "product.xlsx");
     }
 }

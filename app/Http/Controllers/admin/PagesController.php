@@ -64,7 +64,7 @@ class PagesController extends Controller
         $page = Page::find($id);
 
         if ($page == null) {
-            session()->flash('error','Halaman Tidak Ditemukan');
+            session()->flash('error','Page Not Found');
             return redirect()->route('pages.index');
         }
 
@@ -78,7 +78,7 @@ class PagesController extends Controller
         $page = Page::find($id);
 
         if ($page == null) {
-            session()->flash('error','Halaman Tidak Ditemukan');
+            session()->flash('error','Page Not Found');
             return response()->json([
                 'status' => true,
             ]);
@@ -116,7 +116,7 @@ class PagesController extends Controller
         $page = Page::find($id);
 
         if ($page == null) {
-            session()->flash('error','Halaman Tidak Ditemukan');
+            session()->flash('error','Page Not Found');
             return response()->json([
                 'status' => true,
             ]);

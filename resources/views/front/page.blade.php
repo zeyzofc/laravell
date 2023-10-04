@@ -18,11 +18,11 @@
         <div class="container">
             <div class="section-title mt-5 ">
                 <h2>{{ $page->name }}</h2>
-            </div>   
+            </div>
         </div>
     </section>
     <section>
-        <div class="container">          
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     @if (Session::has('success'))

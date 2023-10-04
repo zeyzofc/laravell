@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ExportBrand;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Brand;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BrandController extends Controller
 {
@@ -124,5 +126,9 @@ class BrandController extends Controller
                 'status' => true,
                 'message' => 'Brand Deleted Successfully.'
             ]);
+    }
+
+    public function export_excel(){
+       return Excel::download(new ExportBrand, "brand.xlsx");
     }
 }

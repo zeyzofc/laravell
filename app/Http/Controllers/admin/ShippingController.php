@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ExportShipping;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\ShippingCharge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 use function Laravel\Prompts\error;
 
@@ -130,6 +132,10 @@ class ShippingController extends Controller
 
         return response()->json([
             'status' => true,
-        ]);      
+        ]);
+    }
+
+    public function export_excel(){
+       return Excel::download(new ExportShipping, "shipping.xlsx");
     }
 }

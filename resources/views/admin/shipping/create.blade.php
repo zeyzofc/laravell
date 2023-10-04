@@ -2,23 +2,36 @@
 
 @section('content')
 				<!-- Content Header (Page header) -->
-				<section class="content-header">					
+				<section class="content-header">
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
 							<div class="col-sm-6">
 								<h1>Shipping Management</h1>
 							</div>
 							<div class="col-sm-6 text-right">
-								<!-- PDF Button -->
-								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-pdf mr-1"></i>PDF</button>
-								<!-- CSV Button -->
-								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-csv mr-1"></i>CSV</button>
-								<!-- Excel Button -->
-								<button class="btn btn-secondary btn-sm"><i class="fas fa-file-excel mr-1"></i>Excel</button>
-								<!-- Refresh Button -->
-								<button type="button" onclick="window.location.href='{{ route('shipping.create') }}'"
-										class="btn btn-info btn-sm"><i class="fas fa-sync-alt mr-1"></i>Refresh</button>
+								<div class="btn-group">
+									<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="importDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Import
+									</button>
+									<div class="dropdown-menu" aria-labelledby="importDropdownButton">
+										<a href="{{ url('admin/shipping/import/pdf') }}" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>PDF</a>
+										<a href="{{ url('admin/shipping/import/csv') }}" class="dropdown-item"><i class="fas fa-file-csv mr-1"></i>CSV</a>
+										<a href="{{ url('admin/shipping/import/excel') }}" class="dropdown-item"><i class="fas fa-file-excel mr-1"></i>Excel</a>
+									</div>
+								</div>
+								<div class="btn-group">
+									<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="exportDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Export
+									</button>
+									<div class="dropdown-menu" aria-labelledby="exportDropdownButton">
+										<a href="{{ url('admin/shipping/export/pdf') }}" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>PDF</a>
+										<a href="{{ url('admin/shipping/export/csv') }}" class="dropdown-item"><i class="fas fa-file-csv mr-1"></i>CSV</a>
+										<a href="{{ url('admin/shipping/export/excel') }}" class="dropdown-item"><i class="fas fa-file-excel mr-1"></i>Excel</a>
+									</div>
+								</div>
+								<button type="button" onclick="window.location.href='{{ route('shipping.create') }}'" class="btn btn-info btn-sm"><i class="fas fa-sync-alt mr-1"></i>Refresh</button>
 							</div>
+
 						</div>
 					</div>
 					<!-- /.container-fluid -->

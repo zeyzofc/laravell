@@ -19,13 +19,12 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\ChartController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ShopController;
+use FontLib\Table\Type\name;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +45,6 @@ use Illuminate\Support\Str;
 //     orderEmail(20);
 
 // });
-
 
 Route::get('/',[FrontController::class,'index'])->name('front.home');
 Route::get('/shop/{categorySlug?}/{subCategory?}',[ShopController::class,'index'])->name('front.shop');
@@ -114,6 +112,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/categories/{category}/edit', [CategoryController::class,'edit'])->name('categories.edit');
         Route::put('/categories/{category}', [CategoryController::class,'update'])->name('categories.update');
         Route::delete('/categories/{category}', [CategoryController::class,'destroy'])->name('categories.delete');
+        Route::get('/categories/export/excel', [CategoryController::class, 'export_excel'])->name('categories.export_excel');
 
         // Sub Category Routes
         Route::get('/sub-categories', [SubCategoryController::class,'index'])->name('sub-categories.index');
@@ -122,6 +121,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/sub-categories/{subCategory}/edit', [SubCategoryController::class,'edit'])->name('sub-categories.edit');
         Route::put('/sub-categories/{subCategory}', [SubCategoryController::class,'update'])->name('sub-categories.update');
         Route::delete('/sub-categories/{subCategory}', [SubCategoryController::class,'destroy'])->name('sub-categories.delete');
+        Route::get('/sub-categories/export/excel', [SubCategoryController::class, 'export_excel'])->name('sub-categories.export_excel');
 
 
         // Brand Routes
@@ -131,6 +131,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/brands/{brand}/edit', [BrandController::class,'edit'])->name('brands.edit');
         Route::put('/brands/{brand}', [BrandController::class,'update'])->name('brands.update');
         Route::delete('/brands/{brand}', [BrandController::class,'destroy'])->name('brands.delete');
+        Route::get('/brands/export/excel', [BrandController::class, 'export_excel'])->name('brands.export_excel');
 
          // Product Routes
         Route::get('/products', [ProductController::class,'index'])->name('products.index');
@@ -140,7 +141,8 @@ Route::group(['prefix' => 'admin'],function(){
         Route::put('/products/{product}', [ProductController::class,'update'])->name('products.update');
         Route::delete('/products/{product}', [ProductController::class,'destroy'])->name('products.delete');
         Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
-
+        Route::get('/products/export/excel', [ProductController::class, 'export_excel'])->name('products.export_excel');
+       
         Route::get('/product-subcategories', [ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
 
         Route::post('/product-images/update', [ProductImageController::class,'update'])->name('product-images.update');
@@ -152,6 +154,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/shipping{id}', [ShippingController::class,'edit'])->name('shipping.edit');
         Route::put('/shipping{id}', [ShippingController::class,'update'])->name('shipping.update');
         Route::delete('/shipping{id}', [ShippingController::class,'destroy'])->name('shipping.delete');
+        Route::get('/shipping/export/excel', [ShippingController::class, 'export_excel'])->name('shipping.export_excel');
 
          //Coupon Route
         Route::get('/coupons', [DiscountCodeController::class,'index'])->name('coupons.index');
@@ -194,17 +197,16 @@ Route::group(['prefix' => 'admin'],function(){
 
 
         Route::get('/getSlug',function(Request $request){
-            $slug = '';
-            if(!empty($request->title)) {
-                $slug = Str::slug($request->title);
-            }
+                $slug = '';
+                if(!empty($request->title)) {
+                    $slug = Str::slug($request->title);
+                }
 
-            return response()->json([
-                'status' => true,
-                'slug' =>$slug
-            ]);
-        })->name('getSlug');
-    });
-
-    
+                return response()->json([
+                    'status' => true,
+                    'slug' =>$slug
+                ]);
+            })->name('getSlug');
+        });
+ 
 });

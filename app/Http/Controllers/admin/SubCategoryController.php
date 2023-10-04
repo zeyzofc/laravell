@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ExportSubCategory;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\subCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubCategoryController extends Controller
 {
@@ -140,5 +142,9 @@ class SubCategoryController extends Controller
                 'status' => true,
                 'message' => 'Sub Category Deleted Successfully.'
             ]);
+    }
+
+    public function export_excel(){
+       return Excel::download(new ExportSubCategory, "sub category.xlsx");
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ExportCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -9,6 +10,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\File;
 use App\Models\TempImage;
 use Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends Controller
 {
@@ -179,5 +181,9 @@ class CategoryController extends Controller
             'message' => 'Category delete successfully'
         ]);
 
+    }
+
+    public function export_excel(){
+       return Excel::download(new ExportCategory, "category.xlsx");
     }
 }
