@@ -24,6 +24,11 @@
 		
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
 
+		<!-- DataTables -->
+		<link rel="stylesheet" href="{{ asset('admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('admin-assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 	</head>
 	<body class="hold-transition sidebar-mini">
@@ -107,6 +112,21 @@
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+		<!-- DataTables  & Plugins -->
+		<script src="{{ asset('admin-assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/jszip/jszip.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/dist/js/adminlte.min.js') }}"></script>
 
 		<!-- AdminLTE for demo purposes -->
 		<script src="{{ asset('admin-assets/js/demo.js') }}"></script>

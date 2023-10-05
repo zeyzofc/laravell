@@ -167,8 +167,8 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table m-0">
+            <div class="table-responsive p-0">
+                <table id="example1" class="table table-hover text-nowrap">
                     <thead>
                         <tr>
                             <th>Order ID</th>
@@ -342,6 +342,23 @@
             localStorage.removeItem('scrollPosition'); // Remove the saved position
         }
     }
+</script>
+
+<script>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false, "searching":false,
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
 </script>
 
 {{-- Fast Loading  --}}

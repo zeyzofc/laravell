@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ExportUser;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -159,4 +161,9 @@ class UserController extends Controller
                 'message' => $message
             ]);
         }
+
+    public function export_excel(){
+       return Excel::download(new ExportUser, "User.xlsx");
     }
+
+}

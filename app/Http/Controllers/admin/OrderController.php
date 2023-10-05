@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ExportOrder;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -76,7 +78,9 @@ class OrderController extends Controller
             'status' => true,
             'message' => $message
         ]);
+    }
 
-
+    public function export_excel(){
+       return Excel::download(new ExportOrder, "Order.xlsx");
     }
 }

@@ -113,6 +113,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::put('/categories/{category}', [CategoryController::class,'update'])->name('categories.update');
         Route::delete('/categories/{category}', [CategoryController::class,'destroy'])->name('categories.delete');
         Route::get('/categories/export/excel', [CategoryController::class, 'export_excel'])->name('categories.export_excel');
+        Route::post('/categories/import/excel', [CategoryController::class, 'import_excel'])->name('categories.import_excel');
 
         // Sub Category Routes
         Route::get('/sub-categories', [SubCategoryController::class,'index'])->name('sub-categories.index');
@@ -163,12 +164,14 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/coupons/{coupon}/edit', [DiscountCodeController::class,'edit'])->name('coupons.edit');
         Route::put('/coupons/{coupon}', [DiscountCodeController::class,'update'])->name('coupons.update');
         Route::delete('/coupons/{coupon}', [DiscountCodeController::class,'destroy'])->name('coupons.delete');
+        Route::get('/coupons/export/excel', [DiscountCodeController::class, 'export_excel'])->name('coupons.export_excel');
 
         // Order Routes
         Route::get('/orders', [OrderController::class,'index'])->name('orders.index');
         Route::get('/orders/{id}', [OrderController::class,'detail'])->name('orders.detail');
         Route::post('/order/change-status/{id}', [OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
         Route::post('/order/send-email/{id}', [OrderController::class,'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
+        Route::get('/orders/export/excel', [OrderController::class, 'export_excel'])->name('orders.export_excel');
 
         //Users Route
         Route::get('users',[UserController::class,'index'])->name('users.index');
@@ -177,6 +180,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/users/{user}/edit', [UserController::class,'edit'])->name('users.edit');
         Route::put('/users/{user}', [UserController::class,'update'])->name('users.update');
         Route::delete('/users/{user}', [UserController::class,'destroy'])->name('users.delete');
+         Route::get('/users/export/excel', [UserController::class, 'export_excel'])->name('users.export_excel');
 
         //Pages Route
         Route::get('pages',[PagesController::class,'index'])->name('pages.index');

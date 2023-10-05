@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ExportCoupon;
 use App\Http\Controllers\Controller;
 use App\Models\DiscountCoupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DiscountCodeController extends Controller
 {
@@ -190,5 +192,9 @@ class DiscountCodeController extends Controller
             'status' => true
         ]);
 
+    }
+
+    public function export_excel(){
+       return Excel::download(new ExportCoupon, "Discount Coupon.xlsx");
     }
 }
