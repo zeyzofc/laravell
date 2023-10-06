@@ -40,8 +40,8 @@
 
                 @if (Cart::count() > 0)
                 <div class="col-md-8">
-                    <div class="table-responsive">
-                        <table class="table" id="cart">
+                    <div class="card-body table-responsive p-0">
+                        <table id="example1" class="table table-hover text-nowrap" id="cart">
                             <thead>
                                 <tr>
                                     <th>Item</th>
@@ -64,7 +64,7 @@
                                                 <img src="{{ asset('admin-assets/img/default-150x150.png') }}"/>
                                             @endif
 
-                                            <h2>{{ $item->name }}</h2>
+                                            <h6>{{ $item->name }}</h6>
                                         </div>
                                     </td>
                                     <td>Rp {{ number_format($item->price,2) }}</td>
@@ -97,7 +97,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mt-2">
                     <div class="card cart-summery">
                         <div class="card-body">
                         <div class="sub-title">
@@ -132,67 +132,87 @@
     </section>
 @endsection
 @section('customJs')
-    <script>
-            $('.add').click(function(){
-                var qtyElement = $(this).parent().prev(); // Qty Input
-                var qtyValue = parseInt(qtyElement.val());
-                if (qtyValue < 10) {
-                    
-                    qtyElement.val(qtyValue+1);
-                    var rowId = $(this).data('id');
-                    var newQty = qtyElement.val();
-                    updateCart(rowId,newQty)
-                }
-            });
-
-            $('.sub').click(function(){
-                var qtyElement = $(this).parent().next(); 
-                var qtyValue = parseInt(qtyElement.val());
-                if (qtyValue > 1) {
-                    qtyElement.val(qtyValue-1);
-
-                    var rowId = $(this).data('id');
-                    var newQty = qtyElement.val();
-                    updateCart(rowId,newQty)
-                }
-            });
-
-            function updateCart(rowId,qty) {
-                $.ajax({
-                    url: '{{ route("front.updateCart") }}',
-                    type: 'post',
-                    data: {rowId:rowId, qty:qty},
-                    dataType: 'json',
-                    success: function(response) {
-                        window.location.href = '{{ route("front.cart") }}'
-
-                    }
-                });
+<script>
+        $('.add').click(function(){
+            console.log('Plus button clicked');
+            var qtyElement = $(this).parent().prev(); // Qty Input
+            var qtyValue = parseInt(qtyElement.val());
+            console.log('Current quantity:', qtyValue);
+            if (qtyValue < 10) {
+                
+                qtyElement.val(qtyValue+1);
+                var rowId = $(this).data('id');
+                var newQty = qtyElement.val();
+                updateCart(rowId,newQty)
             }
+        });
 
-            function deleteItem(rowId) {
-                Swal.fire({
-                icon: 'question',
-                title: 'Confirm Deletion',
-                text: 'Are you sure you want to delete this item?',
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '{{ route("front.deleteItem.cart") }}',
-                        type: 'post',
-                        data: { rowId: rowId },
-                        dataType: 'json',
-                        success: function (response) {
-                            if (response.status == true) {
-                                window.location.href = '{{ route("front.cart") }}';
-                            }
-                        }
-                    });
+        $('.sub').click(function(){
+            var qtyElement = $(this).parent().next(); 
+            var qtyValue = parseInt(qtyElement.val());
+            if (qtyValue > 1) {
+                qtyElement.val(qtyValue-1);
+
+                var rowId = $(this).data('id');
+                var newQty = qtyElement.val();
+                updateCart(rowId,newQty)
+            }
+        });
+
+        function updateCart(rowId,qty) {
+            $.ajax({
+                url: '{{ route("front.updateCart") }}',
+                type: 'post',
+                data: {rowId:rowId, qty:qty},
+                dataType: 'json',
+                success: function(response) {
+                    window.location.href = '{{ route("front.cart") }}'
+
                 }
             });
         }
-    </script>
+
+        function deleteItem(rowId) {
+            Swal.fire({
+            icon: 'question',
+            title: 'Confirm Deletion',
+            text: 'Are you sure you want to delete this item?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route("front.deleteItem.cart") }}',
+                    type: 'post',
+                    data: { rowId: rowId },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == true) {
+                            window.location.href = '{{ route("front.cart") }}';
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": false,"paging": false,"info": false,
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+
 @endsection

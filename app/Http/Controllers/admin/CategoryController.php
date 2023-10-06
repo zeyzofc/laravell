@@ -188,15 +188,15 @@ class CategoryController extends Controller
        return Excel::download(new ExportCategory, "category.xlsx");
     }
     
-    public function import_excel() 
-{
-    try {
-        Excel::import(new CategoryImport, request()->file('file'));
-        session()->flash('success', 'Excel file imported successfully.');
-    } catch (\Exception $e) {
-        session()->flash('error', 'Error importing Excel file: ' . $e->getMessage());
-    }
+    public function import_excel()
+    {
+        try {
+            Excel::import(new CategoryImport, request()->file('file'));
+            session()->flash('success', 'Excel file imported successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error importing Excel file: ' . $e->getMessage());
+        }
 
-    return back();
-}
+        return back();
+    }
 }

@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
-@section('content')				
+@section('content')
 				<!-- Content Header (Page header) -->
-				<section class="content-header">					
+				<section class="content-header">
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
 							<div class="col-sm-6">
@@ -75,7 +75,6 @@
 									</div>
 									</div>
 								</div>
-							</div>
 							<div class="pb-5 pt-3">
 								<button type="submit" class="btn btn-primary">Update</button>
 								<a href="{{ route('categories.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>

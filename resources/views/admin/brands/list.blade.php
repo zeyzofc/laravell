@@ -169,7 +169,7 @@
 <script>
     $(function () {
         $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": false,
+            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": false,"paging": false,"info": false,
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,

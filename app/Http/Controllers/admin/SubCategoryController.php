@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Exports\ExportSubCategory;
 use App\Http\Controllers\Controller;
+use App\Imports\SubCategoryImport;
 use App\Models\Category;
 use App\Models\subCategory;
 use Illuminate\Http\Request;
@@ -146,5 +147,17 @@ class SubCategoryController extends Controller
 
     public function export_excel(){
        return Excel::download(new ExportSubCategory, "sub category.xlsx");
+    }
+
+    public function import_excel()
+    {
+        try {
+            Excel::import(new SubCategoryImport, request()->file('file'));
+            session()->flash('success', 'Excel file imported successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error importing Excel file: ' . $e->getMessage());
+        }
+
+        return back();
     }
 }

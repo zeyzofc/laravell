@@ -37,6 +37,11 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/ion.rangeSlider.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/style.css') }} " />
 
+	<!-- DataTables -->
+	<link rel="stylesheet" href="{{ asset('admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('admin-assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,29 +96,33 @@
 				  <i class="navbar-toggler-icon fas fa-bars"></i>
     		</button>
     		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-      			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        			<!-- <li class="nav-item">
-          				<a class="nav-link active" aria-current="page" href="index.php" title="Products">Home</a>
-        			</li> -->
-                    @if(getCategories()->isNotEmpty())
-                    @foreach (getCategories() as $category)
-					<li class="nav-item dropdown">
-						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							{{ $category->name }}
-						</button>
-                        @if($category->sub_category->isNotEmpty())
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                        @foreach ($category->sub_category as $subCategory)
-                        <li><a class="dropdown-item nav-link" href="{{ route('front.shop', [$category->slug,$subCategory->slug]) }}">{{ $subCategory->name }}</a></li>
-                        @endforeach
-                        </ul>
-                        @endif
-					</li>
-                    @endforeach
-                    @endif
-					
-      			</ul>
-      		</div>
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<!-- <li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="index.php" title="Products">Home</a>
+					</li> -->
+					@php $categoryCount = 0; @endphp <!-- Initialize a counter -->
+					@if(getCategories()->isNotEmpty())
+					@foreach (getCategories() as $category)
+						@if ($categoryCount < 6) <!-- Check if the counter is less than 5 -->
+							<li class="nav-item dropdown">
+								<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+									{{ $category->name }}
+								</button>
+								@if($category->sub_category->isNotEmpty())
+								<ul class="dropdown-menu dropdown-menu-dark">
+									@foreach ($category->sub_category as $subCategory)
+									<li><a class="dropdown-item nav-link" href="{{ route('front.shop', [$category->slug,$subCategory->slug]) }}">{{ $subCategory->name }}</a></li>
+									@endforeach
+								</ul>
+								@endif
+							</li>
+							@php $categoryCount++; @endphp <!-- Increment the counter -->
+						@endif
+					@endforeach
+					@endif
+				</ul>
+			</div>
+
 			<div class="right-nav py-0">
 				<a href="{{ route("front.cart") }}" class="ml-3 d-flex pt-2">
 					<i class="fas fa-shopping-cart text-primary"></i>
@@ -211,6 +220,20 @@
 <script src="{{ asset('front-assets/js/ion.rangeSlider.min.js') }}"></script>
 <script src="{{ asset('front-assets/js/custom.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('admin-assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script>
 window.onscroll = function() {myFunction()};
 

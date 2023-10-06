@@ -123,7 +123,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::put('/sub-categories/{subCategory}', [SubCategoryController::class,'update'])->name('sub-categories.update');
         Route::delete('/sub-categories/{subCategory}', [SubCategoryController::class,'destroy'])->name('sub-categories.delete');
         Route::get('/sub-categories/export/excel', [SubCategoryController::class, 'export_excel'])->name('sub-categories.export_excel');
-
+        Route::post('/sub-categories/import/excel', [SubCategoryController::class, 'import_excel'])->name('sub-categories.import_excel');
 
         // Brand Routes
         Route::get('/brands', [BrandController::class,'index'])->name('brands.index');

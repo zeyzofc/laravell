@@ -112,7 +112,7 @@
                         <img src="{{ asset('uploads/category/thumb/'.$category->image) }}" alt=""
                         class="img-fluid">
                         @endif
-                        {{-- <img src="images/cat-1.jpg" alt="" class="img-fluid"> --}}
+                        <img src="{{ asset('img/image.gif') }}" alt="" class="img-fluid">
                     </div>
                     <div class="right">
                         <div class="cat-data">
