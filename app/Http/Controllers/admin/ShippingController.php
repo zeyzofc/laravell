@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Exports\ExportShipping;
 use App\Http\Controllers\Controller;
+use App\Imports\ShippingImport;
 use App\Models\Country;
 use App\Models\ShippingCharge;
 use Illuminate\Http\Request;
@@ -137,5 +138,17 @@ class ShippingController extends Controller
 
     public function export_excel(){
        return Excel::download(new ExportShipping, "shipping.xlsx");
+    }
+
+    public function import_excel()
+    {
+        try {
+            Excel::import(new ShippingImport, request()->file('file'));
+            session()->flash('success', 'Excel file imported successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error importing Excel file: ' . $e->getMessage());
+        }
+
+        return back();
     }
 }

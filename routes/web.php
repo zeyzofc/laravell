@@ -140,6 +140,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::put('/brands/{brand}', [BrandController::class,'update'])->name('brands.update');
         Route::delete('/brands/{brand}', [BrandController::class,'destroy'])->name('brands.delete');
         Route::get('/brands/export/excel', [BrandController::class, 'export_excel'])->name('brands.export_excel');
+        Route::post('/brands/import/excel', [BrandController::class, 'import_excel'])->name('brands.import_excel');
 
          // Product Routes
         Route::get('/products', [ProductController::class,'index'])->name('products.index');
@@ -150,6 +151,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::delete('/products/{product}', [ProductController::class,'destroy'])->name('products.delete');
         Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
         Route::get('/products/export/excel', [ProductController::class, 'export_excel'])->name('products.export_excel');
+        Route::post('/products/import/excel', [ProductController::class, 'import_excel'])->name('products.import_excel');
        
         Route::get('/product-subcategories', [ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
 
@@ -163,6 +165,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::put('/shipping{id}', [ShippingController::class,'update'])->name('shipping.update');
         Route::delete('/shipping{id}', [ShippingController::class,'destroy'])->name('shipping.delete');
         Route::get('/shipping/export/excel', [ShippingController::class, 'export_excel'])->name('shipping.export_excel');
+        Route::post('/shipping/import/excel', [ShippingController::class, 'import_excel'])->name('shipping.import_excel');
 
          //Coupon Route
         Route::get('/coupons', [DiscountCodeController::class,'index'])->name('coupons.index');
@@ -172,6 +175,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::put('/coupons/{coupon}', [DiscountCodeController::class,'update'])->name('coupons.update');
         Route::delete('/coupons/{coupon}', [DiscountCodeController::class,'destroy'])->name('coupons.delete');
         Route::get('/coupons/export/excel', [DiscountCodeController::class, 'export_excel'])->name('coupons.export_excel');
+        Route::post('/coupons/import/excel', [DiscountCodeController::class, 'import_excel'])->name('coupons.import_excel');
 
         // Order Routes
         Route::get('/orders', [OrderController::class,'index'])->name('orders.index');

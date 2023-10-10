@@ -35,10 +35,11 @@
                         <p class="invalid-feedback">{{ $message }}</p>
                         @enderror
                     </div>
-                    
+                    <div class="form-group small">
+                        <a href="{{ route('account.login') }}" class="forgot-link">Back To Login</a>
+                    </div>
                     <input type="submit" class="btn btn-dark btn-block btn-lg" value="Submit">
                 </form>
-                <div class="text-center small"><a href="{{ route('account.login') }}">Login</a></div>
             </div>
         </div>
     </section>

@@ -101,30 +101,28 @@
             <h2>Categories</h2>
         </div>
         <div class="row pb-3">
-            @if (getCategories()->isNotEmpty())
-            @foreach(getCategories() as $category)
-
-            
+    @if (getCategories()->isNotEmpty())
+        @foreach (getCategories() as $category)
             <div class="col-lg-3">
                 <div class="cat-card">
                     <div class="left">
                         @if ($category->image != "")
-                        <img src="{{ asset('uploads/category/thumb/'.$category->image) }}" alt=""
-                        class="img-fluid">
+                            <a href="{{ route('front.shop', [$category->slug]) }}"><img src="{{ asset('uploads/category/thumb/'.$category->image) }}" alt="" class="img-fluid"></a>
+                        @else
+                            <a href="{{ route('front.shop', [$category->slug]) }}"><img src="{{ asset('uploads/category/thumb/default-150x150 copy.png') }}" alt="" class="img-fluid"></a>
                         @endif
-                        <img src="{{ asset('img/image.gif') }}" alt="" class="img-fluid">
                     </div>
                     <div class="right">
                         <div class="cat-data">
                             <h2>{{ $category->name }}</h2>
-                            {{-- <p>100 Products</p> --}}
                         </div>
                     </div>
                 </div>
             </div>
-            @endforeach
-            @endif
-        </div>
+        @endforeach
+    @endif
+</div>
+
     </div>
 </section>
 

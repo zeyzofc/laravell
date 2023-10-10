@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Exports\ExportBrand;
 use App\Http\Controllers\Controller;
+use App\Imports\BrandImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Brand;
@@ -130,5 +131,17 @@ class BrandController extends Controller
 
     public function export_excel(){
        return Excel::download(new ExportBrand, "brand.xlsx");
+    }
+
+    public function import_excel()
+    {
+        try {
+            Excel::import(new BrandImport, request()->file('file'));
+            session()->flash('success', 'Excel file imported successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error importing Excel file: ' . $e->getMessage());
+        }
+
+        return back();
     }
 }

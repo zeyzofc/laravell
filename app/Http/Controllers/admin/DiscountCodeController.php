@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Exports\ExportCoupon;
 use App\Http\Controllers\Controller;
+use App\Imports\CouponImport;
 use App\Models\DiscountCoupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -196,5 +197,17 @@ class DiscountCodeController extends Controller
 
     public function export_excel(){
        return Excel::download(new ExportCoupon, "Discount Coupon.xlsx");
+    }
+
+    public function import_excel()
+    {
+        try {
+            Excel::import(new CouponImport, request()->file('file'));
+            session()->flash('success', 'Excel file imported successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error importing Excel file: ' . $e->getMessage());
+        }
+
+        return back();
     }
 }

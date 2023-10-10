@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Exports\ExportProduct;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductImport;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -282,5 +283,17 @@ class ProductController extends Controller
 
     public function export_excel(){
        return Excel::download(new ExportProduct, "product.xlsx");
+    }
+
+    public function import_excel()
+    {
+        try {
+            Excel::import(new ProductImport, request()->file('file'));
+            session()->flash('success', 'Excel file imported successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error importing Excel file: ' . $e->getMessage());
+        }
+
+        return back();
     }
 }

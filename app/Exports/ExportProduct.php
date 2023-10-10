@@ -28,6 +28,7 @@ class ExportProduct implements FromCollection, WithHeadings
             'sub_category_id',
             'brand_id',
             'is_featured',
+            'barcode',
             'track_qty',
             'qty',
             'status',
@@ -48,6 +49,7 @@ class ExportProduct implements FromCollection, WithHeadings
                 'subcategory' => optional($product->subcategory)->name,
                 'brand' => optional($product->brand)->name,
                 'is_featured' => $product->is_featured,
+                'barcode' => $product->barcode,
                 'track_qty' => $product->track_qty,
                 'qty' => $product->qty,
                 'status' => $product->status == 1 ? 'Active' : 'Inactive', // Conditionally set status
@@ -76,6 +78,7 @@ class ExportProduct implements FromCollection, WithHeadings
             'Subcategory',
             'Brand',
             'Is Featured',
+            'Barcode',
             'Track Qty',
             'Qty',
             'Status',

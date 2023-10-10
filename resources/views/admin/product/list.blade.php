@@ -39,9 +39,8 @@
                                 Import
                             </button>
                             <div class="dropdown-menu" aria-labelledby="importDropdownButton">
-                                <a href="{{ url('admin/products/import/pdf') }}" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>PDF</a>
                                 <a href="{{ url('admin/products/import/csv') }}" class="dropdown-item"><i class="fas fa-file-csv mr-1"></i>CSV</a>
-                                <a href="{{ url('admin/products/import/excel') }}" class="dropdown-item"><i class="fas fa-file-excel mr-1"></i>Excel</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-excel mr-1"></i>Excel</a>
                             </div>
                         </div>
                         <div class="btn-group">
@@ -54,10 +53,38 @@
                                 <a href="{{ url('admin/products/export/excel') }}" class="dropdown-item"><i class="fas fa-file-excel mr-1"></i>Excel</a>
                             </div>
                         </div>
-                        <button type="button" onclick="window.location.href='{{ route('products.index') }}'" class="btn btn-info btn-sm"><i class="fas fa-sync-alt mr-1"></i>Refresh</button>
+                        <button onclick="window.location.href='{{ route('products.index') }}'" class="btn btn-info btn-sm"><i class="fas fa-sync-alt mr-1"></i>Refresh</button>
                     </div>
                 </div>
             </form>
+
+            <!-- Modal -->
+            <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="importModalLabel">Import Excel File</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{{ route('products.import_excel') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="file">Choose Excel File:</label>
+                                    <input type="file" name="file" class="form-control" accept=".xlsx">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <div class="card-body table-responsive p-0">
                 <table id="example1" class="table table-hover text-nowrap">
                     <thead>

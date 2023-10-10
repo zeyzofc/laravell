@@ -15,7 +15,6 @@ class ExportCoupon implements FromCollection, WithHeadings
     {
         // Select the necessary fields from the Order model
         $discountCoupons = DiscountCoupon::select(
-            'id',
             'code',
             'name',
             'description',
@@ -32,7 +31,6 @@ class ExportCoupon implements FromCollection, WithHeadings
         // Map and format the order data as needed
         $discountCoupons = $discountCoupons->map(function ($discountCoupon) {
             return [
-                'ID' => $discountCoupon->id,
                 'Code' => $discountCoupon->code,
                 'Name' => $discountCoupon->name,
                 'Description' => $discountCoupon->description,
@@ -53,7 +51,6 @@ class ExportCoupon implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-        'ID',
         'Code',
         'Name',
         'Description',

@@ -1,0 +1,35 @@
+/* Add some basic styling to the coupon input group */
+.apply-coupon {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Style the Apply Coupon button */
+#apply-discount {
+    background-color: #007bff; /* Change to your preferred button color */
+    color: #fff;
+    border: none;
+}
+
+/* Style the Remove Coupon button */
+#remove-discount {
+    background-color: #dc3545; /* Change to your preferred button color */
+    color: #fff;
+    border: none;
+    margin-left: 10px;
+}
+
+/* Style the response message */
+#discount-response {
+    display: inline-block;
+    background-color: #28a745; /* Change to your preferred background color */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Center the text within the response message */
+#discount-response strong {
+    margin-right: 5px;
+}
