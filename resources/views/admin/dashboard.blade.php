@@ -134,13 +134,19 @@
                 </div>
                 <div class="card-footer">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="description-block border-right">
                                 <h5 class="description-header">Rp {{ number_format($data['currentMonthEarnings'], 2) }}</h5>
                                 <span class="description-text">TOTAL EARNING FOR THIS MONTH</span>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
+                            <div class="description-block">
+                                <h5 class="description-header">Rp {{ number_format($data['LastMonthEarnings'], 2) }}</h5>
+                                <span class="description-text">TOTAL EARNING LAST MONTH</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
                             <div class="description-block">
                                 <h5 class="description-header">Rp {{ number_format($data['totalEarnings'], 2) }}</h5>
                                 <span class="description-text">TOTAL EARNING</span>

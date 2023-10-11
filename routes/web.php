@@ -110,6 +110,7 @@ Route::group(['prefix' => 'admin'],function(){
 
     Route::group(['middleware' => 'admin.auth'],function(){
         Route::get('/dashboard', [HomeController::class,'index'])->name('admin.dashboard');
+        Route::get('/check-new-orders', [HomeController::class, 'checkNewOrders'])->name('admin.checkNewOrders');
         Route::get('/logout', [HomeController::class,'logout'])->name('admin.logout');
 
         // Category Routes
@@ -121,6 +122,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::delete('/categories/{category}', [CategoryController::class,'destroy'])->name('categories.delete');
         Route::get('/categories/export/excel', [CategoryController::class, 'export_excel'])->name('categories.export_excel');
         Route::post('/categories/import/excel', [CategoryController::class, 'import_excel'])->name('categories.import_excel');
+        Route::get('/categories/export/pdf',[CategoryController::class,'export_pdf'])->name('categories.export_pdf');
 
         // Sub Category Routes
         Route::get('/sub-categories', [SubCategoryController::class,'index'])->name('sub-categories.index');
@@ -131,6 +133,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::delete('/sub-categories/{subCategory}', [SubCategoryController::class,'destroy'])->name('sub-categories.delete');
         Route::get('/sub-categories/export/excel', [SubCategoryController::class, 'export_excel'])->name('sub-categories.export_excel');
         Route::post('/sub-categories/import/excel', [SubCategoryController::class, 'import_excel'])->name('sub-categories.import_excel');
+        Route::get('/sub-categories/export/pdf',[SubCategoryController::class,'export_pdf'])->name('sub-categories.export_pdf');
 
         // Brand Routes
         Route::get('/brands', [BrandController::class,'index'])->name('brands.index');
@@ -141,6 +144,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::delete('/brands/{brand}', [BrandController::class,'destroy'])->name('brands.delete');
         Route::get('/brands/export/excel', [BrandController::class, 'export_excel'])->name('brands.export_excel');
         Route::post('/brands/import/excel', [BrandController::class, 'import_excel'])->name('brands.import_excel');
+        Route::get('/brands/export/pdf',[BrandController::class,'export_pdf'])->name('brands.export_pdf');
 
          // Product Routes
         Route::get('/products', [ProductController::class,'index'])->name('products.index');
@@ -152,6 +156,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
         Route::get('/products/export/excel', [ProductController::class, 'export_excel'])->name('products.export_excel');
         Route::post('/products/import/excel', [ProductController::class, 'import_excel'])->name('products.import_excel');
+        Route::get('/products/export/pdf',[ProductController::class,'export_pdf'])->name('products.export_pdf');
        
         Route::get('/product-subcategories', [ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
 
@@ -166,6 +171,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::delete('/shipping{id}', [ShippingController::class,'destroy'])->name('shipping.delete');
         Route::get('/shipping/export/excel', [ShippingController::class, 'export_excel'])->name('shipping.export_excel');
         Route::post('/shipping/import/excel', [ShippingController::class, 'import_excel'])->name('shipping.import_excel');
+        Route::get('/shipping/export/pdf',[ShippingController::class,'export_pdf'])->name('shipping.export_pdf');
 
          //Coupon Route
         Route::get('/coupons', [DiscountCodeController::class,'index'])->name('coupons.index');
@@ -176,6 +182,8 @@ Route::group(['prefix' => 'admin'],function(){
         Route::delete('/coupons/{coupon}', [DiscountCodeController::class,'destroy'])->name('coupons.delete');
         Route::get('/coupons/export/excel', [DiscountCodeController::class, 'export_excel'])->name('coupons.export_excel');
         Route::post('/coupons/import/excel', [DiscountCodeController::class, 'import_excel'])->name('coupons.import_excel');
+        Route::get('/coupons/export/pdf',[DiscountCodeController::class,'export_pdf'])->name('coupons.export_pdf');
+
 
         // Order Routes
         Route::get('/orders', [OrderController::class,'index'])->name('orders.index');
@@ -183,6 +191,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('/order/change-status/{id}', [OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
         Route::post('/order/send-email/{id}', [OrderController::class,'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
         Route::get('/orders/export/excel', [OrderController::class, 'export_excel'])->name('orders.export_excel');
+        Route::get('/orders/export/pdf',[OrderController::class,'export_pdf'])->name('orders.export_pdf');
 
         //Users Route
         Route::get('users',[UserController::class,'index'])->name('users.index');

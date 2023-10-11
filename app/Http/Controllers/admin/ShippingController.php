@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Imports\ShippingImport;
 use App\Models\Country;
 use App\Models\ShippingCharge;
+use PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -150,5 +152,23 @@ class ShippingController extends Controller
         }
 
         return back();
+    }
+
+    public function export_pdf()
+    {
+        // Retrieve order details and customer information
+        $shippingCharges = ShippingCharge::with('country')->get();
+        $data['shippingCharges'] = $shippingCharges;
+        $now = Carbon::now()->format('Y-m-d');
+        $data['now'] = $now;
+
+        // Generate the PDF
+        $pdf = PDF::loadView('admin.report.shipping', compact('data'));
+
+        // Set options if needed (e.g., page size, orientation)
+        $pdf->setPaper('A4', 'potrait');
+        
+        // Download the PDF with a specific filename
+        return $pdf->stream('Shipping.pdf');
     }
 }

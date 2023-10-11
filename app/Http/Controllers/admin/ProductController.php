@@ -11,6 +11,8 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\subCategory;
 use App\Models\TempImage;
+use PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -282,7 +284,7 @@ class ProductController extends Controller
     }
 
     public function export_excel(){
-       return Excel::download(new ExportProduct, "product.xlsx");
+       return Excel::download(new ExportProduct, "product.csv");
     }
 
     public function import_excel()
@@ -295,5 +297,26 @@ class ProductController extends Controller
         }
 
         return back();
+    }
+
+    public function export_pdf()
+    {
+        // Retrieve order details and customer information
+        $products = Product::all();
+        foreach ($products as $product) {
+        $product->description = strip_tags($product->description);
+    }
+        $data['products'] = $products;
+        $now = Carbon::now()->format('Y-m-d');
+        $data['now'] = $now;
+
+        // Generate the PDF
+        $pdf = PDF::loadView('admin.report.product', compact('data'));
+
+        // Set options if needed (e.g., page size, orientation)
+        $pdf->setPaper('A4', 'potrait');
+        
+        // Download the PDF with a specific filename
+        return $pdf->stream('Product.pdf');
     }
 }

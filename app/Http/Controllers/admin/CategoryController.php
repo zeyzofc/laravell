@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
 use Illuminate\Support\Facades\File;
 use App\Models\TempImage;
+use Carbon\Carbon;
 use Image;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class CategoryController extends Controller
 {
@@ -198,5 +200,23 @@ class CategoryController extends Controller
         }
 
         return back();
+    }
+
+    public function export_pdf()
+    {
+        // Retrieve order details and customer information
+        $categories = Category::all();
+        $data['categories'] = $categories;
+        $now = Carbon::now()->format('Y-m-d');
+        $data['now'] = $now;
+
+        // Generate the PDF
+        $pdf = PDF::loadView('admin.report.category', compact('data'));
+
+        // Set options if needed (e.g., page size, orientation)
+        $pdf->setPaper('A4', 'potrait');
+        
+        // Download the PDF with a specific filename
+        return $pdf->stream('category.pdf');
     }
 }

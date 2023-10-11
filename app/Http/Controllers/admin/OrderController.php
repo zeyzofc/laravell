@@ -6,6 +6,8 @@ use App\Exports\ExportOrder;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
+use PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -82,5 +84,23 @@ class OrderController extends Controller
 
     public function export_excel(){
        return Excel::download(new ExportOrder, "Order.xlsx");
+    }
+
+    public function export_pdf()
+    {
+        // Retrieve order details and customer information
+        $orders = Order::all();
+        $data['orders'] = $orders;
+        $now = Carbon::now()->format('Y-m-d');
+        $data['now'] = $now;
+
+        // Generate the PDF
+        $pdf = PDF::loadView('admin.report.order', compact('data'));
+
+        // Set options if needed (e.g., page size, orientation)
+        $pdf->setPaper('A4', 'potrait');
+        
+        // Download the PDF with a specific filename
+        return $pdf->stream('Order.pdf');
     }
 }

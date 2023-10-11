@@ -36,6 +36,7 @@
                 </div>
 
                 <div class="col-md-6">
+                    <br>
                     <form class="shake" role="form" method="post" id="contactForm" name="contact-form">
                         <div class="mb-3">
                             <label class="mb-2" for="name">Name</label>

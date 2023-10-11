@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Imports\SubCategoryImport;
 use App\Models\Category;
 use App\Models\subCategory;
+use PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -159,5 +161,25 @@ class SubCategoryController extends Controller
         }
 
         return back();
+    }
+
+    public function export_pdf()
+    {
+        // Retrieve order details and customer information
+        $subCategories = subCategory::select('sub_categories.*','categories.name as categoryName')
+                        ->leftJoin('categories','categories.id','sub_categories.category_id')
+                        ->get();
+        $data['subCategories'] = $subCategories;
+        $now = Carbon::now()->format('Y-m-d');
+        $data['now'] = $now;
+
+        // Generate the PDF
+        $pdf = PDF::loadView('admin.report.subCategory', compact('data'));
+
+        // Set options if needed (e.g., page size, orientation)
+        $pdf->setPaper('A4', 'potrait');
+        
+        // Download the PDF with a specific filename
+        return $pdf->stream('Sub Category.pdf');
     }
 }

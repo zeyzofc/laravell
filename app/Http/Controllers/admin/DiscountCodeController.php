@@ -6,6 +6,7 @@ use App\Exports\ExportCoupon;
 use App\Http\Controllers\Controller;
 use App\Imports\CouponImport;
 use App\Models\DiscountCoupon;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -209,5 +210,23 @@ class DiscountCodeController extends Controller
         }
 
         return back();
+    }
+
+    public function export_pdf()
+    {
+        // Retrieve order details and customer information
+        $coupons = DiscountCoupon::all();
+        $data['coupons'] = $coupons;
+        $now = Carbon::now()->format('Y-m-d');
+        $data['now'] = $now;
+
+        // Generate the PDF
+        $pdf = PDF::loadView('admin.report.coupon', compact('data'));
+
+        // Set options if needed (e.g., page size, orientation)
+        $pdf->setPaper('A4', 'potrait');
+        
+        // Download the PDF with a specific filename
+        return $pdf->stream('Discount.pdf');
     }
 }

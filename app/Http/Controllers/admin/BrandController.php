@@ -8,6 +8,8 @@ use App\Imports\BrandImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Brand;
+use PDF;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BrandController extends Controller
@@ -143,5 +145,23 @@ class BrandController extends Controller
         }
 
         return back();
+    }
+
+    public function export_pdf()
+    {
+        // Retrieve order details and customer information
+        $brands = Brand::all();
+        $data['brands'] = $brands;
+        $now = Carbon::now()->format('Y-m-d');
+        $data['now'] = $now;
+
+        // Generate the PDF
+        $pdf = PDF::loadView('admin.report.brand', compact('data'));
+
+        // Set options if needed (e.g., page size, orientation)
+        $pdf->setPaper('A4', 'potrait');
+        
+        // Download the PDF with a specific filename
+        return $pdf->stream('Brand.pdf');
     }
 }

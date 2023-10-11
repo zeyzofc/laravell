@@ -9,4 +9,9 @@ class ShippingCharge extends Model
 {
     protected $fillable = ['country_id','amount'];
     use HasFactory;
+    
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
 }

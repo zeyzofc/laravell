@@ -19,13 +19,22 @@ use Carbon\Carbon;
         $paymentStatus = [1, 3, 4];
 
         // Calculate total earnings for this month
-        $currentMonth = Carbon::now()->startOfMonth();
+        $currentMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
         $currentMonthEarnings = Order::where('payment_status', 2)
             ->where('updated_at', '>=', $currentMonth)
             ->sum('grand_total');
         
         // Calculate total earnings
         $totalEarnings = Order::where('payment_status', 2)->sum('grand_total');
+
+        //Last Month
+        $lastMonthStartDate = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
+        $lastMonthEndDate = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
+
+        $LastMonthEarnings = Order::where('payment_status', 2)
+                            ->whereDate('updated_at','>=', $lastMonthStartDate)
+                            ->whereDate('updated_at','<=', $lastMonthEndDate)
+                            ->sum('grand_total');
 
         $categoryCount = Category::count();
         $userCount = User::where('role', 1)->count();
@@ -50,6 +59,7 @@ use Carbon\Carbon;
             'orders' => $orders,
             'currentMonthEarnings' => $currentMonthEarnings,
             'totalEarnings' => $totalEarnings,
+            'LastMonthEarnings' => $LastMonthEarnings,
             'chart' => $chart->build(),
         ];
         

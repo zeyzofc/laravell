@@ -18,7 +18,7 @@ class PendapatanBulanan
     {
         $tahun = date('Y');
         $bulan = date('m');
-        $chartType = request()->get('chartType', 'area'); // Get the selected chart type from the request
+        $chartType = request()->get('chartType', 'bar'); // Change the default chart type to 'bar'
 
         // Initialize the array with default values for all 12 months
         $dataTotalPendapatan = array_fill(0, 12, 0);
@@ -34,16 +34,16 @@ class PendapatanBulanan
 
         // Create the chart based on the selected chart type
         switch ($chartType) {
-            case 'bar':
-                $chart = $this->chart->barChart();
-                break;
             case 'line':
                 $chart = $this->chart->lineChart();
                 break;
             case 'area':
-            default:
                 $chart = $this->chart->areaChart();
                 break;
+            case 'bar':
+            default:
+                $chart = $this->chart->barChart();
+                break; // Set the default chart type to 'bar'
         }
 
         $chart->setTitle('Revenue Data')

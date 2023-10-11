@@ -45,8 +45,9 @@
                             <thead>
                                 <tr>
                                     <th>Item</th>
-                                    <th>Price</th>
+                                    
                                     <th>Quantity</th>
+                                    <th>Price</th>
                                     <th>Total</th>
                                     <th>Remove</th>
                                 </tr>
@@ -67,7 +68,6 @@
                                             <h6>{{ $item->name }}</h6>
                                         </div>
                                     </td>
-                                    <td>Rp {{ number_format($item->price,2) }}</td>
                                     <td>
                                         <div class="input-group quantity mx-auto" style="width: 100px;">
                                             <div class="input-group-btn">
@@ -83,6 +83,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td>Rp {{ number_format($item->price,2) }}</td>
                                     <td>
                                         Rp {{ number_format($item->price*$item->qty,2) }}
                                     </td>
