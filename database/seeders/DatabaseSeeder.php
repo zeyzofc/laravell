@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Category::factory(10)->create();
+        $this->call(AdminSeeder::class);
+        $this->call(CountrySeeder::class);
+        
+        // \App\Models\Category::factory(10)->create();
     }
 }
