@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AdminSeeder::class);
         $this->call(CountrySeeder::class);
+        $this->call(PageSeeder::class);
         
         // \App\Models\Category::factory(10)->create();
     }
