@@ -3,8 +3,8 @@
 
 <br>
 <br>
-## E-commerce website in  Laravel 10
-<h1>Please ⭐⭐⭐ this repository if you like it</h1>
+## E-Commerce Website in  Laravel 10
+<h1>Please Give ⭐⭐⭐ to This Repository if You Like It</h1>
 
 ### Features :
 # ====== FRONT-END =======
@@ -13,9 +13,9 @@
 - Shopping Cart, Wishlist, Product Reviews
 - Coupons & Discounts
 - Related Products
-- A Product search form
-- Payment integration(Midtrans)
-many more......
+- A Product Search Form
+- Payment Integration (Midtrans)
+Many More......
 
 ## ======= ADMIN =======
 
@@ -54,7 +54,7 @@ many more......
 11. Visit ```localhost:8000``` in your browser
 12. Visit /admin if you want to access the admin panel. Admin Email/Password: ```admin@example.com```/```admin```.
 
-<p style="text-align:center">Thank You so much for your time !!!</p>
+<p style="text-align:center">Thank You So Much for Your Time !!!</p>
 
 
 ### Screenshots :
@@ -90,5 +90,5 @@ many more......
 <hr>
   Copyright © 2023
   
-<h1>Dont Forget To ⭐ this repository</h1>
+<h1>Dont Forget to ⭐ This Repository</h1>
 <h1>Thank You So Much ❤️💙</h1>
