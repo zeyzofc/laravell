@@ -210,8 +210,6 @@ Route::group(['prefix' => 'admin'],function(){
         Route::put('/pages/{page}', [PagesController::class,'update'])->name('pages.update');
         Route::delete('/pages/{page}', [PagesController::class,'destroy'])->name('pages.delete');
 
-
-
         //temp-images.create
         Route::post('/upload-temp-image', [TempImagesController::class,'create'])->name('temp-images.create');
 

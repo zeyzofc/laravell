@@ -157,6 +157,9 @@
                         <strong>{{ Session::get('code')->code}}</strong>
                         <a class="btn btn-sm btn-danger" id="remove-discount"><i class="fa fa-times"></i></a>
                     </div>
+                    <div class="btn bt">
+
+                    </div>
                     @endif
                 </div>
                 
