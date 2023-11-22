@@ -19,7 +19,7 @@ class PaymentCallbackController extends Controller
 
             if ($callback->isSuccess()) {
                  // Generate a random invoice number
-                $randomInvoiceNumber = 'INV-' . mt_rand(1000, 9999);
+                $randomInvoiceNumber = 'BDS-' . mt_rand(1000, 9999);
                 Order::where('id', $order->id)->update([
                     'payment_status' => 2,
                     'invoice_number' => $randomInvoiceNumber,
