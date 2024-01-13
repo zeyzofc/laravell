@@ -1,1 +1,1 @@
-web: php artisan serve --port=433
+web: php artisan serve
